@@ -7,7 +7,7 @@ import requests
 
 class Doc:
 
-    """Базовый документ ЕГАИС1"""
+    """Базовый документ ЕГАИС"""
     def __init__(self, fsrar_id):
         self.fsrar_id = fsrar_id
         global ns_namespace
@@ -133,12 +133,11 @@ args = parser.parse_args()
 xml_str = create_query_resend_doc(args.fsrar_id, args.ttn)
 print(xml.dom.minidom.parseString(xml_str).toprettyxml())
 
-#q = send_query(xml_str, args.utm_url, "QueryResendDoc")
-#assert q.status_code == 200
-#print(q.text)
+q = send_query(xml_str, args.utm_url, "QueryResendDoc")
+assert q.status_code == 200
+print(q.text)
 
-s = '<?xml version="1.0" encoding="UTF-8" standalone="no"?><A><url>10582e6c-29dc-4d24-af42-6508cf4a2246</url><sign>95A867400A0054CAC8A8B388BEF4BB2507B3A8926CE2F589E1FF67EB8B2876ABBA871E996022B81BFB94465475AD130CFDE575043AB1603655939FB07D6C88F0</sign><ver>2</ver></A>'
-root = ET.fromstring(s)
+root = ET.fromstring(q.text)
 guid = root.find('url').text
 
 i = 0
