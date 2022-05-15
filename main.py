@@ -4,7 +4,8 @@ import xml.dom.minidom
 import requests
 
 class Doc:
-    """Базовый документ ЕГАИС"""
+
+    """Базовый документ ЕГАИС1"""
     def __init__(self, fsrar_id):
         self.fsrar_id = fsrar_id
         global ns_namespace
