@@ -92,21 +92,21 @@ def create_query_resend_doc(fsrar_id, ttn):
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
-def send_accept_act_v2():
-    str_xml = create_accept_act_v4("030000412451", "0001004", "2022-05-14", "TTN-0550405896", "Создано вручную, с любовью и вниманием к деталям.")
+def send_accept_act_v4(fsrar_id, ttn):
+    str_xml = create_accept_act_v4(fsrar_id, "0001004", "2022-05-15", ttn, "Создано вручную, с любовью и вниманием к деталям.")
     print(str_xml)
 
     files=dict()
-    files['xml_file'] = ("WayBillAct_v2.xml", str_xml, 'text/xml')
+    files['xml_file'] = ("WayBillAct_v4.xml", str_xml, 'text/xml')
 
     headers = {'Content-Disposition': 'attachment'}
     # headers = {'Content-Type': 'multipart/form-data',}
     params = [('title', 'xml_file'),]
-    #ret = requests.post("http://192.168.0.182:8080/opt/in/WayBillAct_v4",
-    #                    files=files,
-    #                    headers=headers,
-    #                    params=params)
-    #return ret
+    ret = requests.post("{}/opt/in/{}".format(utm_url, service),
+                        files=files,
+                        headers=headers,
+                        params=params)
+    return ret
 
 # print(send_accept_act_v2())
 
@@ -130,10 +130,12 @@ parser.add_argument('--ttn', help='ttn')
 parser.add_argument('--utm-url', help='utm_url')
 args = parser.parse_args()
 
-xml_str = create_query_resend_doc(args.fsrar_id, args.ttn)
+#xml_str = create_query_resend_doc(args.fsrar_id, args.ttn)
+xml_str = create_accept_act_v4(args.fsrar_id, "000017", "2022-05-15", args.ttn, "Создано вручную, с любовью и вниманием к деталям.")
 print(xml.dom.minidom.parseString(xml_str).toprettyxml())
 
-q = send_query(xml_str, args.utm_url, "QueryResendDoc")
+#q = send_query(xml_str, args.utm_url, "QueryResendDoc")
+q = send_query(xml_str, args.utm_url, "WayBillAct_v4")
 assert q.status_code == 200
 print(q.text)
 
@@ -159,3 +161,6 @@ while (not exit):
             print(q.text)
             exit = True
             break
+
+
+
