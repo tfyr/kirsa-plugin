@@ -1,5 +1,7 @@
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
+import argparse
+import time
 
 import requests
 
@@ -25,7 +27,7 @@ class Doc:
 
     @staticmethod
     def append_parameter(el, name, value):
-        p = ET.SubElement(el, "qp:Parameters")
+        p = ET.SubElement(el, "qp:Parameter")
         ET.SubElement(p, "qp:Name").text = name
         ET.SubElement(p, "qp:Value").text = value
 
@@ -89,6 +91,7 @@ def create_query_resend_doc(fsrar_id, ttn):
     #tree.write("./egais_cheques/{}-{}.xml".format(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"), kassa), encoding="UTF-8", xml_declaration=True)
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
+
 def send_accept_act_v2():
     str_xml = create_accept_act_v4("030000412451", "0001004", "2022-05-14", "TTN-0550405896", "Создано вручную, с любовью и вниманием к деталям.")
     print(str_xml)
@@ -107,7 +110,53 @@ def send_accept_act_v2():
 
 # print(send_accept_act_v2())
 
-print(
-    xml.dom.minidom.parseString(create_query_resend_doc("030000412451", "TTN-0550405896")).toprettyxml()
-)
+def send_query(str_xml, utm_url, service):
+    files=dict()
+    files['xml_file'] = ("query.xml", str_xml, 'text/xml')
 
+    headers = {'Content-Disposition': 'attachment'}
+    # headers = {'Content-Type': 'multipart/form-data',}
+    params = [('title', 'xml_file'),]
+    ret = requests.post("{}/opt/in/{}".format(utm_url, service),
+                        files=files,
+                        headers=headers,
+                        params=params)
+    return ret
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--fsrar-id', help='fsrar_id')
+parser.add_argument('--ttn', help='ttn')
+parser.add_argument('--utm-url', help='utm_url')
+args = parser.parse_args()
+
+xml_str = create_query_resend_doc(args.fsrar_id, args.ttn)
+print(xml.dom.minidom.parseString(xml_str).toprettyxml())
+
+#q = send_query(xml_str, args.utm_url, "QueryResendDoc")
+#assert q.status_code == 200
+#print(q.text)
+
+s = '<?xml version="1.0" encoding="UTF-8" standalone="no"?><A><url>10582e6c-29dc-4d24-af42-6508cf4a2246</url><sign>95A867400A0054CAC8A8B388BEF4BB2507B3A8926CE2F589E1FF67EB8B2876ABBA871E996022B81BFB94465475AD130CFDE575043AB1603655939FB07D6C88F0</sign><ver>2</ver></A>'
+root = ET.fromstring(s)
+guid = root.find('url').text
+
+i = 0
+exit = False
+while (not exit):
+    i += 1
+    if i > 10:
+        break
+    time.sleep(5)
+    print("attempt {}".format(i))
+    q = requests.get("{}/opt/out".format(args.utm_url))
+    assert q.status_code == 200
+    root = ET.fromstring(q.text)
+    for url in root.findall('url'):
+        if url.attrib and 'replyId' in url.attrib and url.attrib['replyId'] == guid:
+            print(url.text)
+            q = requests.get(url.text)
+            assert q.status_code == 200
+            print(q.text)
+            exit = True
+            break
