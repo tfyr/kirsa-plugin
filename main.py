@@ -158,8 +158,8 @@ while (not exit):
             print(url.text)
             q = requests.get(url.text)
             assert q.status_code == 200
-            print(q.text)
             exit = True
+            print(q.text)
             break
 
 
