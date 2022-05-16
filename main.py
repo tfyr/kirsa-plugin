@@ -5,36 +5,37 @@ import argparse
 import time
 import requests
 
-from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc
+from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc, get_fsrar_id
 
 
-def resend_doc(fsrar_id, ttn):
+def resend_doc(utm_url, fsrar_id, ttn):
     xml_str = create_query_resend_doc(fsrar_id, ttn)
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
-    return send_query(xml_str, args.utm_url, "QueryResendDoc")
+    return send_query(xml_str, utm_url, "QueryResendDoc")
 
 
-def act(fsrar_id, ttn):
+def act(utm_url, fsrar_id, ttn):
     xml_str = create_accept_act_v4(fsrar_id,
                                    "000017",
                                    datetime.datetime.now().strftime("%Y-%m-%d"),
                                    ttn,
                                    "Создано вручную, с любовью и вниманием к деталям.")
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
-    return send_query(xml_str, args.utm_url, "WayBillAct_v4")
+    return send_query(xml_str, utm_url, "WayBillAct_v4")
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--fsrar-id', help='fsrar_id')
 parser.add_argument('--cmd', help='command like resend, act')
 parser.add_argument('--ttn', help='ttn')
 parser.add_argument('--utm-url', help='utm_url')
 args = parser.parse_args()
 
+fsrar_id = get_fsrar_id(args.utm_url)
+
 if args.cmd == 'resend':
-    q=resend_doc(args.fsrar_id, args.ttn)
+    q=resend_doc(args.utm_url, fsrar_id, args.ttn)
 elif args.cmd == 'act':
-    q=act(args.fsrar_id, args.ttn)
+    q=act(args.utm_url, fsrar_id, args.ttn)
 
 assert q.status_code == 200
 print(q.text)

@@ -31,6 +31,12 @@ class Doc:
         ET.SubElement(p, "qp:Value").text = value
 
 
+def get_fsrar_id(utm_url):
+    q = requests.get("{}/diagnosis".format(utm_url),)
+    assert q.status_code == 200
+    root = ET.fromstring(q.text)
+    return root.find("CN").text
+
 def create_accept_act_v2(fsrar_id, act_number, act_date, wb_reg_id, note):
     doc = Doc(fsrar_id)
 
