@@ -9,7 +9,7 @@ from egais import create_accept_act_v4, send_query, parse_simple_response, creat
 
 
 def resend_doc(fsrar_id, ttn):
-    xml_str = create_query_resend_doc(args.fsrar_id, args.ttn)
+    xml_str = create_query_resend_doc(fsrar_id, ttn)
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
     return send_query(xml_str, args.utm_url, "QueryResendDoc")
 
@@ -18,7 +18,7 @@ def act(fsrar_id, ttn):
     xml_str = create_accept_act_v4(fsrar_id,
                                    "000017",
                                    datetime.datetime.now().strftime("%Y-%m-%d"),
-                                   args.ttn,
+                                   ttn,
                                    "Создано вручную, с любовью и вниманием к деталям.")
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
     return send_query(xml_str, args.utm_url, "WayBillAct_v4")
