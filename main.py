@@ -31,7 +31,7 @@ parser.add_argument('--ttn', help='ttn')
 parser.add_argument('--utm-url', help='utm_url')
 args = parser.parse_args()
 
-if args.resend:
+if args.cmd=='resend':
     q=resend_doc(args.fsrar_id, args.ttn)
 elif args.act:
     q=act(args.fsrar_id, args.ttn)
