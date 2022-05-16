@@ -7,9 +7,9 @@ ns_namespace = "http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01"
 class Doc:
     """Базовый документ ЕГАИС"""
     def __init__(self, fsrar_id):
+        global ns_namespace
         ET.register_namespace('ns', ns_namespace)
         self.fsrar_id = fsrar_id
-        global ns_namespace
         documents_name = "{%s}Documents" % (ns_namespace,)
         self.documents = ET.Element(documents_name)
         self.owner = ET.SubElement(self.documents, "ns:Owner")
