@@ -1,3 +1,5 @@
+import datetime
+import xml
 import xml.etree.ElementTree as ET
 import requests
 
@@ -109,3 +111,18 @@ def send_query(str_xml, utm_url, service):
 def parse_simple_response(text):
     root = ET.fromstring(text)
     return root.find('url').text, root.find('sign').text
+
+
+def resend_doc(utm_url, fsrar_id, ttn):
+    xml_str = create_query_resend_doc(fsrar_id, ttn)
+    return send_query(xml_str, utm_url, "QueryResendDoc")
+
+
+def act(utm_url, fsrar_id, ttn):
+    xml_str = create_accept_act_v4(fsrar_id,
+                                   "000017",
+                                   datetime.datetime.now().strftime("%Y-%m-%d"),
+                                   ttn,
+                                   "Создано вручную, с любовью и вниманием к деталям.")
+    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
+    return send_query(xml_str, utm_url, "WayBillAct_v4")

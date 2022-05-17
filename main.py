@@ -5,24 +5,7 @@ import argparse
 import time
 import requests
 
-from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc, get_fsrar_id
-
-
-def resend_doc(utm_url, fsrar_id, ttn):
-    xml_str = create_query_resend_doc(fsrar_id, ttn)
-    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
-    return send_query(xml_str, utm_url, "QueryResendDoc")
-
-
-def act(utm_url, fsrar_id, ttn):
-    xml_str = create_accept_act_v4(fsrar_id,
-                                   "000017",
-                                   datetime.datetime.now().strftime("%Y-%m-%d"),
-                                   ttn,
-                                   "Создано вручную, с любовью и вниманием к деталям.")
-    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
-    return send_query(xml_str, utm_url, "WayBillAct_v4")
-
+from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc, get_fsrar_id, resend_doc, act
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cmd', help='command like resend, act')
