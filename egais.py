@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import requests
 
 ns_namespace = "http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01"
-
+handmade = "Создано вручную, с любовью и вниманием к деталям."
 
 class Doc:
     """Базовый документ ЕГАИС"""
@@ -54,7 +54,22 @@ def create_accept_act_v2(fsrar_id, act_number, act_date, wb_reg_id, note):
     ET.SubElement(header, "wa:Note").text = note
     ET.SubElement(waybill_act, "wa:Content")
     tree = ET.ElementTree(doc.documents)
-    #tree.write("./egais_cheques/{}-{}.xml".format(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"), kassa), encoding="UTF-8", xml_declaration=True)
+    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+
+def create_accept_act_v3(fsrar_id, act_number, act_date, wb_reg_id, note):
+    wa_namespace = "http://fsrar.ru/WEGAIS/ActTTNSingle_v3"
+    ET.register_namespace('wa', wa_namespace)
+    doc = Doc(fsrar_id)
+    waybill_act = ET.SubElement(doc.document, "ns:WayBillAct_v3")
+    header = ET.SubElement(waybill_act, "{%s}Header" % wa_namespace)
+    ET.SubElement(header, "wa:IsAccept").text = 'Accepted'
+    ET.SubElement(header, "wa:ACTNUMBER").text = act_number
+    ET.SubElement(header, "wa:ActDate").text = act_date
+    ET.SubElement(header, "wa:WBRegId").text = wb_reg_id
+    ET.SubElement(header, "wa:Note").text = note
+    ET.SubElement(waybill_act, "wa:Content")
+    tree = ET.ElementTree(doc.documents)
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
@@ -74,9 +89,7 @@ def create_accept_act_v4(fsrar_id, act_number, act_date, wb_reg_id, note):
     ET.SubElement(waybill_act, "wa:Content")
     transport = ET.SubElement(waybill_act, "wa:Transport")
     ET.SubElement(transport, "wa:ChangeOwnership").text="NotChange"
-
     tree = ET.ElementTree(doc.documents)
-    #tree.write("./egais_cheques/{}-{}.xml".format(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"), kassa), encoding="UTF-8", xml_declaration=True)
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
@@ -118,11 +131,23 @@ def resend_doc(utm_url, fsrar_id, ttn):
     return send_query(xml_str, utm_url, "QueryResendDoc")
 
 
-def act(utm_url, fsrar_id, ttn):
+def act3(utm_url, fsrar_id, ttn):
+    global handmade
+    xml_str = create_accept_act_v3(fsrar_id,
+                                   "000017",
+                                   datetime.datetime.now().strftime("%Y-%m-%d"),
+                                   ttn,
+                                   handmade)
+    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
+    return send_query(xml_str, utm_url, "WayBillAct_v3")
+
+
+def act4(utm_url, fsrar_id, ttn):
+    global handmade
     xml_str = create_accept_act_v4(fsrar_id,
                                    "000017",
                                    datetime.datetime.now().strftime("%Y-%m-%d"),
                                    ttn,
-                                   "Создано вручную, с любовью и вниманием к деталям.")
+                                   handmade)
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
     return send_query(xml_str, utm_url, "WayBillAct_v4")

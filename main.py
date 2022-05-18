@@ -5,7 +5,7 @@ import argparse
 import time
 import requests
 
-from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc, get_fsrar_id, resend_doc, act
+from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc, get_fsrar_id, resend_doc, act3, act4
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cmd', help='command like resend, act')
@@ -16,9 +16,11 @@ args = parser.parse_args()
 fsrar_id = get_fsrar_id(args.utm_url)
 
 if args.cmd == 'resend':
-    q=resend_doc(args.utm_url, fsrar_id, args.ttn)
-elif args.cmd == 'act':
-    q=act(args.utm_url, fsrar_id, args.ttn)
+    q = resend_doc(args.utm_url, fsrar_id, args.ttn)
+elif args.cmd == 'act3':
+    q = act3(args.utm_url, fsrar_id, args.ttn)
+elif args.cmd == 'act4':
+    q = act4(args.utm_url, fsrar_id, args.ttn)
 
 assert q.status_code == 200
 print(q.text)
