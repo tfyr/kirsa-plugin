@@ -12,40 +12,26 @@ parser.add_argument('--sklad-id', help='sklad-id')
 args = parser.parse_args()
 
 fsrar_id = get_fsrar_id(args.utm_url)
-'''
 
-i = 0
-while True:
-    i += 1
-    print("attempt {}".format(i))
-    q = requests.get("{}/opt/out".format(args.utm_url))
-    if q.status_code == 200:
-        root = ET.fromstring(q.text)
-        for url in root.findall('url'):
-            print(url.text)
-            # q = requests.get(url.text)
-            # assert q.status_code == 200
-            # exit = True
-            # print(q.text)
-            # break
-    time.sleep(60)'''
+q = requests.get("{}/opt/out".format(args.utm_url))
+assert q.status_code == 200
+root = ET.fromstring(q.text)
 
-#files = dict()
-#files['xml_file'] = ("query.xml", "test", 'text/xml')
+files = dict()
+for url in root.findall('url'):
+    print(url.text)
+    q = requests.get(url.text)
+    assert q.status_code == 200
+    files[url.attrib['replyId']] = q.text
 
-
-files = {
-    "ReplyRests_v2.xml": open("data/ReplyRests_v2.xml", "r"),
-    "ReplyRestsShop_v2.xml": open("data/ReplyRestsShop_v2.xml", "r"),
-    #"test_file_3": open("my_file_3.txt", "rb")
-}
 
 # headers = {'Content-Disposition': 'attachment'}
 #headers = {'Content-Type': 'multipart/form-data',}
 #params = [('title', 'Waybill_v4.xml'), ('sklad_id', args.sklad_id)]
 params = {'fsrar_id': args.sklad_id}
-ret = requests.post("{}/file/".format("http://localhost:8015"),
+ret = requests.post("https://kirsa.9733.ru/file/",
                     files=files,
 #                    headers=headers,
                     params=params)
+print(ret)
 
