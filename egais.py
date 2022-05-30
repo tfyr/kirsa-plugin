@@ -108,8 +108,15 @@ def create_query_resend_doc(fsrar_id, ttn):
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
+def create_query_request_rests(fsrar_id):
+    doc = Doc(fsrar_id)
+    ET.SubElement(doc.document, "ns:QueryRests_v2")
+    tree = ET.ElementTree(doc.documents)
+    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+
 def send_query(str_xml, utm_url, service):
-    files=dict()
+    files = dict()
     files['xml_file'] = ("query.xml", str_xml, 'text/xml')
 
     headers = {'Content-Disposition': 'attachment'}
@@ -120,6 +127,7 @@ def send_query(str_xml, utm_url, service):
                         headers=headers,
                         params=params)
     return ret
+
 
 def parse_simple_response(text):
     root = ET.fromstring(text)
@@ -151,3 +159,75 @@ def act4(utm_url, fsrar_id, ttn):
                                    handmade)
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
     return send_query(xml_str, utm_url, "WayBillAct_v4")
+
+
+def query_rests_v2(utm_url, fsrar_id,):
+    global handmade
+    xml_str = create_query_request_rests(fsrar_id)
+    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
+    return send_query(xml_str, utm_url, "QueryRests_v2")
+
+
+def bcode(fsrar_id, fb):
+    'FB-000004599103758'
+    doc = Doc(fsrar_id)
+    qr = ET.SubElement(doc.document, "ns:QueryRestBCode")
+
+    qps = doc.append_parameters(qr)
+    doc.append_parameter(qps, "ФОРМА2", fb)
+
+    tree = ET.ElementTree(doc.documents)
+    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+
+def query_bcode(utm_url, fsrar_id, fb):
+    global handmade
+    xml_str = bcode(fsrar_id, fb)
+    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
+    return send_query(xml_str, utm_url, "QueryRestBCode")
+
+
+
+def xxx():
+    from kirsa.models import Income, TuAlco, IncomePosAlco
+    # et = ET.parse(fn)
+    root = ET.fromstring(xml)
+    # root = et.getroot()
+    my_namespaces = dict([
+        node for _, node in ET.iterparse(
+            BytesIO(xml), events=['start-ns']
+        )
+    ])
+    document = root.find('ns:Document', my_namespaces)
+    products = document.find('ns:ReplyRests_v2/rst:Products', my_namespaces)
+    # income = Income.objects.create(date='2022-05-06', reason_id=3, host_id=3, agent_id=1132, answer_id=None, sklad_id=sklad_id, total=0)
+    # income.save()
+    for position in products.findall('rst:StockPosition', my_namespaces):
+        quantity = position.find('rst:Quantity', my_namespaces).text
+        inform_a_reg_id = position.find('rst:InformF1RegId', my_namespaces).text
+        inform_b_reg_id = position.find('rst:InformF2RegId', my_namespaces).text
+        product = position.find('rst:Product', my_namespaces)
+        full_name = product.find("pref:FullName", my_namespaces).text
+        short_name = product.find("pref:ShortName", my_namespaces)
+        alco_code = product.find('pref:AlcCode', my_namespaces).text
+        capacity = product.find('pref:Capacity', my_namespaces).text
+        alc_volume = product.find('pref:AlcVolume', my_namespaces).text
+
+        print(short_name.text if short_name else full_name)
+        print("    Алкокод: " + alco_code)
+        print("    Кол-во: " + quantity)
+        print("    inform_a_reg_id: " + inform_a_reg_id)
+        print("    inform_b_reg_id: " + inform_b_reg_id)
+        try:
+            tua = TuAlco.objects.get(extsource=3, extcode=alco_code)
+            tua.capacity = capacity
+        except TuAlco.DoesNotExist:
+            raise Exception("not found")
+        #    tua = TuAlco(name=short_name.text if short_name else full_name, beauty_name=full_name, extsource=3,
+        #                 extcode=alco_code, category_id=162, capacity=capacity,
+        #                 volume=alc_volume)
+        #    tua.save()
+        # inc_pos_alco = IncomePosAlco(income=income, amount=quantity, price=tua.price if tua.price else 0, tu_id=tua.id, inform_a_reg=inform_a_reg_id, inform_b_reg=inform_b_reg_id)
+        # inc_pos_alco.save()
+
+
