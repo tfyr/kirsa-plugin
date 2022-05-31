@@ -30,9 +30,10 @@ root = ET.fromstring(q.text)
 files = dict()
 i = 0
 for url in root.findall('url'):
-    m = re.match(r"http:\/\/.*\/opt\/out\/.*\/(\d+)", url.text)
+    m = re.match(r"http:\/\/.*\/opt\/out\/(.*)\/(\d+)", url.text)
     if m:
-        id = int(m.group(1))
+        entity = m.group(1)
+        id = int(m.group(2))
         if id <= last_id:
             print("skip, id:", id)
             continue
@@ -41,7 +42,7 @@ for url in root.findall('url'):
     print(id, url.text)
     q = requests.get(url.text)
     assert q.status_code == 200
-    files["{}{}".format(id, ("-"+url.attrib['replyId']) if 'replyId' in url.attrib else '')] = q.text
+    files["{}-{}{}".format(id, entity, ("-"+url.attrib['replyId']) if 'replyId' in url.attrib else '')] = q.text
     i += 1
 
 
