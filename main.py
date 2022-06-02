@@ -11,6 +11,7 @@ from parseRestShop import parse_rests_v2
 parser = argparse.ArgumentParser()
 parser.add_argument('--cmd', help='command like resend, act')
 parser.add_argument('--ttn', help='ttn')
+parser.add_argument('--fb', help='fb')
 parser.add_argument('--utm-url', help='utm_url')
 args = parser.parse_args()
 
@@ -25,7 +26,7 @@ elif args.cmd == 'act4':
 elif args.cmd == 'rests':
     q = query_rests_v2(args.utm_url, fsrar_id)
 elif args.cmd == 'bcode':
-    q = query_bcode(args.utm_url, fsrar_id, 'FB-000004724173057')
+    q = query_bcode(args.utm_url, fsrar_id, args.fb)
 
 #assert q.status_code == 200
 #print(q.text)
