@@ -108,6 +108,37 @@ def create_query_resend_doc(fsrar_id, ttn):
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
+def create_query_nattn(fsrar_id,):
+    doc = Doc(fsrar_id)
+    query_nattn = ET.SubElement(doc.document, "ns:QueryNATTN")
+    qps = doc.append_parameters(query_nattn)
+    doc.append_parameter(qps, "КОД", fsrar_id)
+    tree = ET.ElementTree(doc.documents)
+    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+
+'''
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:Documents Version="1.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:ns="http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01"
+xmlns:qp="http://fsrar.ru/WEGAIS/QueryParameters">
+84<ns:Owner>
+<ns:FSRAR_ID>030000194005</ns:FSRAR_ID>
+</ns:Owner>
+<ns:Document>
+<ns:QueryNATTN>
+<qp:Parameters>
+<qp:Parameter>
+<qp:Name>КОД</qp:Name>
+<qp:Value>030000194005</qp:Value>
+</qp:Parameter>
+</qp:Parameters>
+</ns:QueryNATTN>
+</ns:Document>
+</ns:Documents>
+'''
+
 def create_query_request_rests(fsrar_id):
     doc = Doc(fsrar_id)
     ET.SubElement(doc.document, "ns:QueryRests_v2")
@@ -137,6 +168,11 @@ def parse_simple_response(text):
 def resend_doc(utm_url, fsrar_id, ttn):
     xml_str = create_query_resend_doc(fsrar_id, ttn)
     return send_query(xml_str, utm_url, "QueryResendDoc")
+
+
+def nattn(utm_url, fsrar_id,):
+    xml_str = create_query_nattn(fsrar_id,)
+    return send_query(xml_str, utm_url, "QueryNATTN")
 
 
 def act3(utm_url, fsrar_id, ttn):
