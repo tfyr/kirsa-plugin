@@ -109,4 +109,5 @@ fsrar_id = get_fsrar_id(utm_url)
 
 for fb_x in fb:
     q = query_bcode(utm_url, fsrar_id, fb_x)
+    print(q.text)
     time.sleep(60*10 + 30)
