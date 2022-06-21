@@ -24,6 +24,17 @@ class TestSum(unittest.TestCase):
                           params=params)
         assert q.status_code == 200
 
+    def test_send_rest_bcode(self, ):
+        files = dict()
+        f = open('data/bc/560-ReplyRestBCode-aaab822b-18d9-40f1-aa4a-ef5f720c9f6a', 'r')
+        files["FORM2REGINFO"] = f.read()
+        f.close()
+        params = {'fsrar_id': 'test'}
+        q = requests.post("http://localhost:8015/file/",
+                          files=files,
+                          params=params)
+        assert q.status_code == 200
+
 
 if __name__ == "__main__":
     unittest.main()
