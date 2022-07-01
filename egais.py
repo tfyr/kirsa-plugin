@@ -224,6 +224,17 @@ def query_bcode(utm_url, fsrar_id, fb):
     return send_query(xml_str, utm_url, "QueryRestBCode")
 
 
+def query_check_bcodes(utm_url, fsrar_id, fn):
+    doc = Doc(fsrar_id)
+    qf = ET.SubElement(doc.document, "ns:QueryFilter")
+    with open(fn) as file:
+        for line in file:
+            if line and line.strip():
+                ET.SubElement(qf, "bc").text = line
+
+        tree = ET.ElementTree(doc.documents)
+        return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
 
 def xxx():
     from kirsa.models import Income, TuAlco, IncomePosAlco

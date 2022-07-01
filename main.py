@@ -5,13 +5,14 @@ import argparse
 import time
 import requests
 
-from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc, get_fsrar_id, resend_doc, act3, act4, query_rests_v2, query_bcode, nattn
+from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc, get_fsrar_id, resend_doc, act3, act4, query_rests_v2, query_bcode, nattn, query_check_bcodes
 from parseRestShop import parse_rests_v2
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cmd', help='command like resend, act')
 parser.add_argument('--ttn', help='ttn')
 parser.add_argument('--fb', help='fb')
+parser.add_argument('--fn', help='filename')
 parser.add_argument('--utm-url', help='utm_url')
 args = parser.parse_args()
 
@@ -31,6 +32,8 @@ elif args.cmd == 'rests':
     q = query_rests_v2(utm_url, fsrar_id)
 elif args.cmd == 'bcode':
     q = query_bcode(utm_url, fsrar_id, args.fb)
+elif args.cmd == 'check-bcodes':
+    q = query_check_bcodes(utm_url, fsrar_id, args.fn)
 
 #assert q.status_code == 200
 #print(q.text)
