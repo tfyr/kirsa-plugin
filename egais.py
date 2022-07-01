@@ -232,11 +232,11 @@ def query_check_bcodes(utm_url, fsrar_id, fn):
 
     #header = ET.SubElement(waybill_act, "{%s}Header" % wa_namespace)
 
-    qf = ET.SubElement(doc.document, "{%s}QueryFilter" % (qf_namespace))
+    qf = ET.SubElement(doc.document, "ns:QueryFilter")
     with open(fn) as file:
         for line in file:
             if line and line.strip():
-                ET.SubElement(qf, "bc").text = line.strip()
+                ET.SubElement(qf, "{%s}bc" % (qf_namespace)).text = line.strip()
                 break
 
         tree = ET.ElementTree(doc.documents)
