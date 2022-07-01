@@ -237,7 +237,6 @@ def query_check_bcodes(utm_url, fsrar_id, fn):
         for line in file:
             if line and line.strip():
                 ET.SubElement(qf, "{%s}bc" % (qf_namespace)).text = line.strip()
-                break
 
         tree = ET.ElementTree(doc.documents)
         xml_str = ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
