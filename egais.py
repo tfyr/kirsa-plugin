@@ -226,6 +226,12 @@ def query_bcode(utm_url, fsrar_id, fb):
 
 def query_check_bcodes(utm_url, fsrar_id, fn):
     doc = Doc(fsrar_id)
+
+    qf_namespace = "http://fsrar.ru/WEGAIS/QueryFilter"
+    ET.register_namespace('qf', qf_namespace)
+
+    #header = ET.SubElement(waybill_act, "{%s}Header" % wa_namespace)
+
     qf = ET.SubElement(doc.document, "ns:QueryFilter")
     with open(fn) as file:
         for line in file:
