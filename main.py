@@ -18,7 +18,7 @@ args = parser.parse_args()
 
 utm_url = args.utm_url or 'http://localhost:8080'
 
-fsrar_id = get_fsrar_id(utm_url)
+fsrar_id = '' # get_fsrar_id(utm_url)
 
 if args.cmd == 'resend':
     q = resend_doc(utm_url, fsrar_id, args.ttn)

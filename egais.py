@@ -228,20 +228,21 @@ def query_check_bcodes(utm_url, fsrar_id, fn):
     doc = Doc(fsrar_id)
 
     qf_namespace = "http://fsrar.ru/WEGAIS/QueryFilter"
-    ET.register_namespace('qf', qf_namespace)
+    ET.register_namespace('', qf_namespace)
 
     #header = ET.SubElement(waybill_act, "{%s}Header" % wa_namespace)
 
-    qf = ET.SubElement(doc.document, "ns:QueryFilter")
+    qf = ET.SubElement(doc.document, "{%s}QueryFilter" % (qf_namespace))
     with open(fn) as file:
         for line in file:
             if line and line.strip():
                 ET.SubElement(qf, "bc").text = line.strip()
+                break
 
         tree = ET.ElementTree(doc.documents)
         xml_str = ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
         print(xml.dom.minidom.parseString(xml_str).toprettyxml())
-        return send_query(xml_str, utm_url, "QueryFilter")
+        return #send_query(xml_str, utm_url, "QueryFilter")
 
 
 
