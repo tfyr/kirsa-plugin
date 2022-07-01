@@ -233,7 +233,8 @@ def query_check_bcodes(utm_url, fsrar_id, fn):
                 ET.SubElement(qf, "bc").text = line
 
         tree = ET.ElementTree(doc.documents)
-        return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+        return send_query(ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8"), utm_url, "QueryFilter")
+
 
 
 def xxx():
