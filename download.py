@@ -1,3 +1,4 @@
+import json
 import re
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
@@ -59,4 +60,5 @@ if len(files):
     f = open(fname, 'w')
     f.write(str(last_id))
     f.close()
-print('ok')
+print('download ok')
+

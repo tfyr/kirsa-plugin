@@ -1,4 +1,5 @@
 import datetime
+import json
 import xml
 import xml.dom.minidom
 import xml.etree.ElementTree as ET
@@ -287,4 +288,20 @@ def xxx():
         # inc_pos_alco = IncomePosAlco(income=income, amount=quantity, price=tua.price if tua.price else 0, tu_id=tua.id, inform_a_reg=inform_a_reg_id, inform_b_reg=inform_b_reg_id)
         # inc_pos_alco.save()
 
+
+def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://localhost:8080'):
+    params = {'fsrar_id': fsrar_id, 'action': 'get_actions'}
+    q = requests.post(url, params=params)
+    assert q.status_code == 200
+    data = json.loads(q.text)
+    for x in data:
+        if x['action'] == 'act4':
+            q = act4(utm_url, fsrar_id, x['wbreg_id'])
+            assert q.status_code == 200
+            transport_id, sign, = parse_simple_response(q.text)
+            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x.id, 'transport_id': transport_id, 'sign': sign}
+            q = requests.post(url, params=params)
+
+            print(x)
+            print(q.text)
 
