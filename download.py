@@ -6,7 +6,7 @@ import argparse
 import time
 import requests
 
-from egais import get_fsrar_id
+from egais import get_fsrar_id, get_actions
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--utm-url', help='utm_url')
@@ -61,4 +61,7 @@ if len(files):
     f.write(str(last_id))
     f.close()
 print('download ok')
+
+get_actions(fsrar_id=fsrar_id)
+
 

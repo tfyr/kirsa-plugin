@@ -1,0 +1,609 @@
+	<ns:Documents xmlns:c="http://fsrar.ru/WEGAIS/Common" xmlns:ce="http://fsrar.ru/WEGAIS/CommonV3" xmlns:iab="http://fsrar.ru/WEGAIS/ActInventoryF1F2Info" xmlns:ns="http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01" xmlns:oref="http://fsrar.ru/WEGAIS/ClientRef_v2" xmlns:pref="http://fsrar.ru/WEGAIS/ProductRef_v2" xmlns:wb="http://fsrar.ru/WEGAIS/TTNSingle_v4" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ns:Owner>
+		<ns:FSRAR_ID>010038062164</ns:FSRAR_ID>
+	</ns:Owner>
+	<ns:Document>
+		<ns:WayBill_v4>
+			<wb:Identity>fc58d5a1-e991-49f6-9c81-de3789f8d383</wb:Identity>
+			<wb:Header>
+				<wb:Type>WBInvoiceFromMe</wb:Type>
+				<wb:NUMBER>00000003430</wb:NUMBER>
+				<wb:Date>2022-06-08</wb:Date>
+				<wb:ShippingDate>2022-06-08</wb:ShippingDate>
+				<wb:Transport>
+					<wb:ChangeOwnership>NotChange</wb:ChangeOwnership>
+					<wb:TRAN_TYPE>413</wb:TRAN_TYPE>
+					<wb:TRAN_COMPANY>ООО "Символ"</wb:TRAN_COMPANY>
+					<wb:TRANSPORT_TYPE>car</wb:TRANSPORT_TYPE>
+					<wb:TRAN_TRAILER>нет</wb:TRAN_TRAILER>
+					<wb:TRAN_CUSTOMER>Общество с ограниченной ответственностью "АгроТрейд"</wb:TRAN_CUSTOMER>
+					<wb:TRAN_DRIVER>Аминов Ринат Ахматович</wb:TRAN_DRIVER>
+					<wb:TRAN_LOADPOINT>Челябинская обл, Магнитогорск г, Вокзальная ул, дом № 2, корпус 1</wb:TRAN_LOADPOINT>
+					<wb:TRAN_UNLOADPOINT>453622, Башкортостан Респ, Абзелиловский р-н, Елимбетово д, Сафы Истамгалина ул, дом № 38а</wb:TRAN_UNLOADPOINT>
+				</wb:Transport>
+				<wb:Shipper>
+					<oref:UL>
+						<oref:ClientRegId>010038062164</oref:ClientRegId>
+						<oref:FullName>Общество с ограниченной ответственностью "АгроТрейд"</oref:FullName>
+						<oref:ShortName>ООО "АгроТрейд"</oref:ShortName>
+						<oref:INN>7446043646</oref:INN>
+						<oref:KPP>745645001</oref:KPP>
+						<oref:address>
+							<oref:Country>643</oref:Country>
+							<oref:RegionCode>74</oref:RegionCode>
+							<oref:description>Россия,,Челябинская Область,,Магнитогорск Город,,Вокзальная Улица,2 Дом  , | корпус 1, строение 11, литера Л, помещение № 2, номер по плану строения 5 (S=287,0 кв.м)</oref:description>
+						</oref:address>
+					</oref:UL>
+				</wb:Shipper>
+				<wb:Consignee>
+					<oref:UL>
+						<oref:ClientRegId>030000412451</oref:ClientRegId>
+						<oref:FullName>Общество с ограниченной ответственностью "Дионис"</oref:FullName>
+						<oref:ShortName>ООО "Дионис"</oref:ShortName>
+						<oref:INN>0201014099</oref:INN>
+						<oref:KPP>020145002</oref:KPP>
+						<oref:address>
+							<oref:Country>643</oref:Country>
+							<oref:RegionCode>02</oref:RegionCode>
+							<oref:description>Башкортостан Респ, Абзелиловский р-н, , Елимбетово д, Сафы Истамгалина ул, 38а,,</oref:description>
+						</oref:address>
+					</oref:UL>
+				</wb:Consignee>
+				<wb:Base>Реализация товаров и услуг 00000003430 от 08.06.2022 0:00:00</wb:Base>
+				<wb:Note>Создан обработкой ИнтеграцияТСД</wb:Note>
+			</wb:Header>
+			<wb:Content>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Водка "НЕКТАР КОЛОСКА НА МОЛОКЕ"</pref:FullName>
+						<pref:ShortName>Водка "НЕКТАР КОЛОСКА НА МОЛОКЕ"</pref:ShortName>
+						<pref:AlcCode>0010255000002043023</pref:AlcCode>
+						<pref:Capacity>0.25</pref:Capacity>
+						<pref:AlcVolume>40</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010000000545</oref:ClientRegId>
+								<oref:FullName>Бирский филиал АО "Башспирт"</oref:FullName>
+								<oref:ShortName>АО "Башспирт"</oref:ShortName>
+								<oref:INN>0276100884</oref:INN>
+								<oref:KPP>025745001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>02</oref:RegionCode>
+									<oref:description>Россия,,Башкортостан Республика,Бирский Район,Бирск Город,,Мира Улица,33 Дом  ,</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>3</wb:Quantity>
+					<wb:Price>143</wb:Price>
+					<wb:Identity>1</wb:Identity>
+					<wb:FARegId>FA-000000048928099</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004893172359</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>198404948144650122001DF674PIWTHDXDMDEOGJLSTIGB4KRNMZSOFWYDOBWUECZN2J3K7AJFZJ3D7ODISSUVN23YYYFFYWPYOLWQFEEB6L6YUO7Z5AVD6HCNKIIEIAUFN62P3ETSDOSMXTMUD73Y</ce:amc>
+									<ce:amc>198404948145690122001SIUPB2OMUCGCJ2CHZMXAKFJVXMKHJ6GTKA32QZI5KWZYKGN45HCVCVMZOUMGQPS3GUW5MK37ZCTWPSDPJLOWTLIMG7UKANNCTGJFIWKSBVK7BYRRUKIESYRYIIID3SBRI</ce:amc>
+									<ce:amc>198404948145760122001WG3HEMWUSUXRPJEB4H3A76MLC4O32QMRO5A5SOYN3A2GGXW7ZEHM2Q6DRUSXRJRUYRG4JK5UBY373K4N34JKN2MQ3OONK4ULYBFSKI6SVSZEHDDIMXD35GCOB3J3KPTNY</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Водка "Золото Башкирии Альфа"</pref:FullName>
+						<pref:ShortName>Водка "Золото Башкирии Альфа"</pref:ShortName>
+						<pref:AlcCode>0010255000001571014</pref:AlcCode>
+						<pref:Capacity>0.5</pref:Capacity>
+						<pref:AlcVolume>40</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010000000545</oref:ClientRegId>
+								<oref:FullName>Бирский филиал АО "Башспирт"</oref:FullName>
+								<oref:ShortName>АО "Башспирт"</oref:ShortName>
+								<oref:INN>0276100884</oref:INN>
+								<oref:KPP>025745001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>02</oref:RegionCode>
+									<oref:description>Россия,,Башкортостан Республика,Бирский Район,Бирск Город,,Мира Улица,33 Дом  ,</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>5</wb:Quantity>
+					<wb:Price>268</wb:Price>
+					<wb:Identity>2</wb:Identity>
+					<wb:FARegId>FA-000000048904219</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004914152648</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>187409386020600222001MH2SKYMITFMQWWDNAC6MVXSFU4CNFNHVINZF3ZEWPGJ7V46VJIHYDFEMWMMAFFK7KUWOWY3W6KM5AT52L6CI4VOBHAIZI5YXYH7MK5TI6YPPQHPLDA2JH4S4EHX373RMY</ce:amc>
+									<ce:amc>187409386020620222001G6VV3S4WVJGG44UCKC4J2OFTMIK2T4EDRAADHKXUG3H5I4DQCJ4JZTDO7CLBWPHZ72CVMOUXB7KAQJZJJ6NYEUZWMAQNEWKGMQSP4JY7SB7VFCG7Q636E4X2ATNDCX62Q</ce:amc>
+									<ce:amc>187409386020650222001WJLGQ4WHZM57GK4SXKJKVWPYE4O2IHJOI4OQ6FDYFJLXQ5KURNH2LKEISCRUD4LUR355ZOP6HDCBFKL6ITYM6K7BBUFDYRDTM2G65UUHYNYDXJB55I3Y6HXIHWPOILB3I</ce:amc>
+									<ce:amc>187409386020700222001EDMCDQFTVECLBOTDTAE2BNXLFUXCO5EN5E4B4BNRZF46PUPGE7QEYE72V2Q7QQOHDONV226FJZQNA7PUIOT6QP2VNLL66PXR3Y76Q5BQZVTVV4KCQCOXYG5253OS5BMGY</ce:amc>
+									<ce:amc>187409386020770222001CRX2ERQIBZCBKDQ6C3YEXEHO343VWPRRPOC2HKAUT6GKXJ7FS3LFP6JLOXS6ETVHDBQXKFHF5AT5G472SEOGC3RSGN7FX4UGVLVASKRB7HVWEYCZWX436M4BSBN3UHVPA</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Водка "Золото Башкирии Люкс"</pref:FullName>
+						<pref:ShortName>Водка "Золото Башкирии Люкс"</pref:ShortName>
+						<pref:AlcCode>0010255000002043019</pref:AlcCode>
+						<pref:Capacity>0.5</pref:Capacity>
+						<pref:AlcVolume>40</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010000000545</oref:ClientRegId>
+								<oref:FullName>Бирский филиал АО "Башспирт"</oref:FullName>
+								<oref:ShortName>АО "Башспирт"</oref:ShortName>
+								<oref:INN>0276100884</oref:INN>
+								<oref:KPP>025745001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>02</oref:RegionCode>
+									<oref:description>Россия,,Башкортостан Республика,Бирский Район,Бирск Город,,Мира Улица,33 Дом  ,</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>5</wb:Quantity>
+					<wb:Price>268</wb:Price>
+					<wb:Identity>3</wb:Identity>
+					<wb:FARegId>FA-000000048524982</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004724173077</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>187307330789361221001JJUYWTFQW2ASWIYRPRIN6KLSEAXN6RFAUGEIYVJORNJ3JPGV3T233OUOTMLEAKKIT2AGHXGAC34LCZBVUDMTN2YBPKTGZ3NTHDWUM7E6UP5FF3ZJ5QCVQZJPB4BX47FKQ</ce:amc>
+									<ce:amc>1873073307895012210012R4ROHHF5KOMDCRQJ3ULXC6S4AAHHUA2DNW4WBU5UG5LKNGYDXGBS7SUUCGQHIUEHNGC4FSPWXUSAZKQZL5CRRPRNCMH3BGEOOFXIEDDLVIY33AH6TUMDNRSAJQK2WM6Y</ce:amc>
+									<ce:amc>187307330789621221001SDK64ORYHNGZGW2PKJIY3UL5KIING5Q5N4NVWYFXPFC5O27FJ6MNYVUAQVHVU55X3U6BX5T5AJSSDVRPZGNI6IIV5WTVWWBVPBQWSLRYO2NKHEJSWAW2NMNJ7IQS36LTA</ce:amc>
+									<ce:amc>187307330789671221001WKE5RKCXLS2HF3BABGTVUCFWDQUKQP5LSZ3HKYO2W47K45LIZQHBTO6IBKYOGO3HHT2IBID5RFKQ3ENKYT2HNXWZYDPPY4AAA4OMCLW2YEMUFWLEHQ7QKLKKUOCOJ7HPA</ce:amc>
+									<ce:amc>187307330789761221001TME7TOPI7FIHDALCLN5N5TBQCUHAJAGOY7B3MGQMFBIG2R3JDCXCB6YPK2WYZ6TWUIXZUHOKNDMSDRF6RYLJUQJFHB46J5I6JYA2XTVM7FRVVI3URDD7MYWK5GED7WJUA</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Водка "СОРМОВСКАЯ ЛЮКС"</pref:FullName>
+						<pref:ShortName>Водка "СОРМОВСКАЯ ЛЮКС"</pref:ShortName>
+						<pref:AlcCode>0100000003150000022</pref:AlcCode>
+						<pref:Capacity>0.7</pref:Capacity>
+						<pref:AlcVolume>40</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010000000315</oref:ClientRegId>
+								<oref:FullName>Общество с ограниченной ответственностью "СОРДИС"</oref:FullName>
+								<oref:ShortName>ООО "СОРДИС"</oref:ShortName>
+								<oref:INN>5263043395</oref:INN>
+								<oref:KPP>526301001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>52</oref:RegionCode>
+									<oref:description>Россия,,Нижегородская Область,,Нижний Новгород Город,,,,Сормовский район, ул. Федосеенко, д. 47 | отдельно стоящее нежилое здание (литер И, И1), литер И, этаж 1, помещения №№ 41-43, 45, 64, 65, 81-83, 88, 90-93, 100-105, 110, 115-118, 235, 237, 237б, 238, этаж антресоль, помещения №№ 141, 144, 152; спиртохранилище (литер Д), нежилое здание; отдельно стоящее нежилое здание (литер Ю), этаж 1, помещения №№ 1-3, этаж 2, помещения №№ 1-10; склад № 2, нежилое здание (литер Я), этаж 1, помещения №№ 1-4 | полуприцеп цистерна CARDI M310 01TC, государственный регистрационный знак ВВ 3767 52 RUS</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>2</wb:Quantity>
+					<wb:Price>345</wb:Price>
+					<wb:Identity>4</wb:Identity>
+					<wb:FARegId>FA-000000048874727</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004900338521</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>188300844088911120001BC5O7LFJ3PP7ICS2EL6H35LW3QJ3JQENK7V4NXVNK6CAV5IWKHSRVTUJS2FXZIDPBEMDBK72MOMONYSIA2Y5LMIC2BBSF2NPNV7M7CI3OJX2NH4SN5EO5TRSABT5NLJBI</ce:amc>
+									<ce:amc>188300844089011120001C5FQILQ2R7BELPJJGUNI2B6TGIABZFC4ECNXKYN4XK4PTGZFVVMMR4FQ7Y4KC535HQKI3WXP53I7OMD7PLU3CAKVIFTTKFD6H4LK3JZQ3AWZYED7OVVB6J54LQZOQBSVA</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>водка "СТУЖА КЕДРОВАЯ"</pref:FullName>
+						<pref:ShortName>водка "СТУЖА КЕДРОВАЯ"</pref:ShortName>
+						<pref:AlcCode>0037160000000205483</pref:AlcCode>
+						<pref:Capacity>0.5</pref:Capacity>
+						<pref:AlcVolume>40</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>030000452138</oref:ClientRegId>
+								<oref:FullName>Общество с ограниченной ответственностью "Первый купажный завод"</oref:FullName>
+								<oref:ShortName>ООО "Первый купажный завод"</oref:ShortName>
+								<oref:INN>7107127612</oref:INN>
+								<oref:KPP>710701001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>71</oref:RegionCode>
+									<oref:description>Россия,,Тульская Область,,Тула Город,,Некрасова Улица,5 Дом  , |  | назначение: нежилые здания, литер А, А1, А2, А3, А4, А5, А6, а1, а3, а5, а13, а15, а18; литер Л, л, л1; литер Д, 1 этаж, помещение 13 (S=27,5 кв.м)</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>6</wb:Quantity>
+					<wb:Price>268.5</wb:Price>
+					<wb:Identity>5</wb:Identity>
+					<wb:FARegId>FA-000000048395631</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004796375059</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>187307378624471221001BWQT5KWEY5YKICPK6AVQ3LUQUE57HTOQYOX66J2ZM5BIMUSTF27BTUXDD3OAMCZR7NGC62YHSETLK6UFSTQTB2K5WAKQNSGD3IMYDJWY6TT5C3SGB5Y324RYJ3NJRIM3Y</ce:amc>
+									<ce:amc>187307378624511221001HA23NXWNVGZD7KFKWAUG6RKPTE63P2KUI2435NPA4G2YDHLDANYI4YP4X635CXXINKLS2ZIW6Q4V6TVW5XGEMFH5O3MF2PPQF3F3KT4247DRS5R72A5XTNDQN4O6RUA2I</ce:amc>
+									<ce:amc>187307378624551221001YTGTNCIWLBZZNVGRDKCG5CBTYMJOUCBL6AO2UN5BYECVUVKLXDUY3XJTWURP2NGU5IW42IDDLXYAPKXPICYIBQ2Z6GSWKCMCKNC4ZADB3RTSVEYUQ7HNRO55MJSLEJF2Q</ce:amc>
+									<ce:amc>187307378624681221001VI6DTFPXEYT5OJIKJIZABCLID4JNZK5GRSP74SJOH4TUFGQ32HSEARJ3XHNPJV4UALQXBMVHLVT5SSTOG5D7SKSHL4K75R3ZZFI345RJTCS5SEAAUDI3FWBT74WOHPUNY</ce:amc>
+									<ce:amc>1873073786247312210012PS2OYFKJI3PJWKWG3ZK6CVUPQOBPH4BGNCHKTKESWH3FM2LWGLFFBVOUJLBALCN4OUOYREKSHGXDHU2PGCPG4MIIP26AY263ZZIWVWNDCLCFOCH3364AI23MQ4ANOGIQ</ce:amc>
+									<ce:amc>1873073786282412210014DDXUT5ZSCEYKGIBTUXFBOHEJIAHAW7WRDJOKGAWNP3IDY6HOE3FTZSSEDR5UU7JEA2N7WR3JVAYRAX2GWK3SZJJDB3HOPPRN6TLAL5GQJIDSZHXDYO4XKD2AKEJPAG5Q</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Водка "ХЛЕБНЫЙ КОЛОС"</pref:FullName>
+						<pref:ShortName>Водка "ХЛЕБНЫЙ КОЛОС"</pref:ShortName>
+						<pref:AlcCode>0000000000039834794</pref:AlcCode>
+						<pref:Capacity>0.7</pref:Capacity>
+						<pref:AlcVolume>40</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010000001025</oref:ClientRegId>
+								<oref:FullName>Открытое акционерное общество "Сарапульский ликеро-водочный завод"</oref:FullName>
+								<oref:ShortName>ОАО "Сарапульский ЛВЗ"</oref:ShortName>
+								<oref:INN>1827017683</oref:INN>
+								<oref:KPP>183801001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>18</oref:RegionCode>
+									<oref:description>Россия,,Удмуртская Республика,,Сарапул Город,,Красный Проезд,,д. 1</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>2</wb:Quantity>
+					<wb:Price>336</wb:Price>
+					<wb:Identity>6</wb:Identity>
+					<wb:FARegId>FA-000000048510812</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004767057846</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>188401359651250421001E3IEAY7YMTWJW6HSNEHDODWALEEMG5OJ5XT3LCSZ43IWG43GRUPSHL5KWAV2T63Y727UV5SQUNGYZQHV5U54U5YHASN4QA2GMZNOJIWJHAANHM7K3BTMAD6Y457ZYLT7Y</ce:amc>
+									<ce:amc>188401359651470421001VQHGKAZ2ALIYME7BDEZPVG3KMUHVMAOTETTVX575RLNFAK6VWIVHLPBB5OCIT47U6ULF3FOSUS5CSKTWDQDV4QAF573EQTJM6KWRZKYETORLFAJATZFIDQBPSQN5RH65I</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Настойка горькая "ПЕРЦОВАЯ С МЕДОМ"</pref:FullName>
+						<pref:ShortName>Настойка горькая "ПЕРЦОВАЯ С МЕДОМ"</pref:ShortName>
+						<pref:AlcCode>0100000010250000034</pref:AlcCode>
+						<pref:Capacity>0.25</pref:Capacity>
+						<pref:AlcVolume>35</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010000001025</oref:ClientRegId>
+								<oref:FullName>Открытое акционерное общество "Сарапульский ликеро-водочный завод"</oref:FullName>
+								<oref:ShortName>ОАО "Сарапульский ЛВЗ"</oref:ShortName>
+								<oref:INN>1827017683</oref:INN>
+								<oref:KPP>183801001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>18</oref:RegionCode>
+									<oref:description>Россия,,Удмуртская Республика,,Сарапул Город,,Красный Проезд,,д. 1</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>212</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>20</wb:Quantity>
+					<wb:Price>128.5</wb:Price>
+					<wb:Identity>7</wb:Identity>
+					<wb:FARegId>FA-000000048611092</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004767057840</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:boxnumber>01000000102510622032900681</ce:boxnumber>
+								<ce:amclist>
+									<ce:amc>198404040040461121001TCBFTABAR4ZNWHOU2SABET6EMIDGGYBY4WUJJAMNGKOJWPNVWECENGAELMQBDPXQK2S4RYNPOL5VVM7BNATNCWAPJTVIHAU447E2BE4SJGYL3DWS6BOFHJC7V6IYLQVWY</ce:amc>
+									<ce:amc>198404040040471121001U33PETYUP5UJDLJ2ZXGQYYSVZYA2CDFF3BLAFSRPAVM6MSVQUD6RXAU3PME7UKB4QL236AOC2HR2WPZYGBF2XJOQMBPWXH2BSLWJACR3WRIKEZSQDPZWPFVLSFKCCXOYI</ce:amc>
+									<ce:amc>198404040040481121001FKM4GJRWP6DMEZP3S6R5KOLI5AEN33MBKYDQTQTSQ7IDGHISFC7J6NJPK5XNJP7MLML3HVVAWTG72SU7I3MF7UIYRLLGB6FS4OBF3HQYOVIK4T4SMYLNF46G5CXO23G4A</ce:amc>
+									<ce:amc>198404040040491121001U4SOKAZVZGCEXSXUJMMOWMA7CU5OS3QSAP3NHGNLY3HBS6J3BPMTYENICLQ4M5TUPQOSA3VH54S26JIL7SM6FQAJEOP3N5DB5S2ZZRYKWHDLZNTFGG2NTAGIGVEQHA2UA</ce:amc>
+									<ce:amc>198404040040521121001V5CCLFEX2LHWTWXYPU3C5SUSYEVRENSBMEDQP5GQD3R7QX6E6HYBFWQJOQU7BR57YJG36W7ZX7IIOEEJPBVXUJQLKPWA6GOOH4OURVQZSC2DFMHF6ENZUVVAYK6G5G4GQ</ce:amc>
+									<ce:amc>198404040040531121001ACI7HP7HRHGMU5YAF5NAFGWFTQTTKE3GT4ORMJS772S7ZP4AYEECN2BDVXN5Y5D2OMWS6E4VBZ6S2F7YHVCJPG4OQ2QTNWUKFGSXUJTU2I3N3523XR3YIH2KSW3T553EI</ce:amc>
+									<ce:amc>198404040040551121001NK5XLISMVAOM3NJZGV3WG5AZRMMMEVK4REBYHCTW2SE4E3ZXFS6L246DGEMX4ZAXWGVSIJGEVFRGOWLSR4AXF3OUFBKLFYPK4ZYQZ77TS45ECJ4TXQKG7BZHCM2QSKKVI</ce:amc>
+									<ce:amc>198404040040571121001RV3ZCJGAIWT7VB7VVAUPMREBFAJ5RPDG54ETNU7O5R6AUPLUP6HV4MN6QGV3ELTJI257ZKNNR5QPAWAZF6VAUNQCOAYV4PLOMF55DZ46RPZMU65HVLELYA54DXD3TQDLY</ce:amc>
+									<ce:amc>198404040040581121001P437HIQE3PSOHXGBI246GS2TOEWABUFYAFT7IFRSVSN4GRXYPSVLI3MYU4LYBJVHIIVJ4P25C7MM4U3VLEEMBJVJGXII2J44QYWGQY3T3PHNLEOR67ABLBKNLEW4OTIKY</ce:amc>
+									<ce:amc>198404040040621121001TXQIACB2XUJ62TZD4GYNLKNNYMWHSLXWUDIWWQEJWXJ5V5CKZMMY4CM6EA27AOFPOPSS4YRSBGQ4PA3OO3WIUAODGOUHYKSQMCJULYP2UAN6ZBGHTVT6YTJMGIEI33A3Y</ce:amc>
+									<ce:amc>198404040040721121001WVTYCKL5C2ZE7YNORJ5XGOQXQQ7BVEZHTCSWZY7H7X3EDLLAIHHCCI5UTA26DCLUI4DER5RSTSFHKMX2J6ZDEN4YE7MOHQPL2WXZBYPKNOQGBC2VK65KIWN275JGZ4CNY</ce:amc>
+									<ce:amc>198404040040731121001AKZLXVRZPED24XPHVVES6FTEZIL5GQ3J7JHSTMVAFVHN2RS2MVKUERTFR6LUEUYVSMO3LGSCTMJDQ52M7QRZMENKUAUYV2T2CP6L2X3Z5AQEFAGBUWOD2GBB6CFFRHQUQ</ce:amc>
+									<ce:amc>198404040040771121001OZZ5K3RVUCXZPK7JNSU5XKPYXE52XZTBSNQKWGG35PELFK3Y6XUMB3RD7NWZBQTDRTGMYTLLEB6XQ2WEGVBHOHPKT5RSQLPU3FC3ROVZWCNQF25HSET5YQVPULKLTXQUA</ce:amc>
+									<ce:amc>198404040040781121001QNJZE2U6XR6BHSDZN32UIEPFBEVBCV4KUJWJWOLGQL6OTXD5V5VZQWWZCTUAIOTD6ODK4MXABXD6WGMFL64YFGCPP7U7PQSNH26UMHMKCXQFF5DAQMXGA77BV73WZ5SZY</ce:amc>
+									<ce:amc>198404040040801121001XAX3EBJMBEJBFQBRI7IH4USYSIESU3ENG2GF47YJWK2RZ6PLHDWFDCF7LM3LM6SVUWKZAXTS7FG5YWLECSLXRAWHO7IIZXGA4TKQBJPOVIFMHE4EZHGLRCU3RARG66SXQ</ce:amc>
+									<ce:amc>198404040040831121001QW5OEWWIXU4DPEQJXPGI67RT6ANKWPRDJYKZFQOY2APSGCOECR5CWS6R3PHIB7HMS5ICXRYJ6DIMX5OKT5K42VAMFR4EEWMKLJZYFZ34P3WTAXCW5VRQJCMPXL2Q5BBUI</ce:amc>
+									<ce:amc>198404040040841121001B2Y5NQAXDVS5CNAS65VXHDZLYAJEREYLWIQH3ZZFRKI2NJPLZ2TUYLGGVMR576KS7YRA36RGLEDJ7YSOQ3LXEIHSGDKVR6TMNXSRBH5W7JKXBNY6DA4DKXY6XK3FWWHOA</ce:amc>
+									<ce:amc>198404040040881121001JGXBCZDBFMBNFABDYPLMONLR5MU6CL35IZKAOTHWQ74RAECX3WMTDS7ZQG5UOOYARXDCIRWE5VXWNQDF2ZK44L6YYGCA2AHDRP7AFJN6RPOMZGBRIEXPA5F3YGFMHMYXI</ce:amc>
+									<ce:amc>198404040040911121001UHY4G2MBWDDR5B2VDJ55BC7ALU3DSCU2P5343YJ4UXTUPXOVQCJC6R3XPHPIK7RAKZ5TY77WTLYUPAMXORFKXIVAZHLR5INJZUA5CGZH5LIZRHXTO74TEZQDR25SEWLTY</ce:amc>
+									<ce:amc>198404040040981121001IUPSA6LQZJATYSREJLYRBJUF2ABO3GUPWDICGFWDHGBI4P6FBGO7Y437PFYXRJ4GAFU3TZW2ZXZPKX6UBIPASOPFD7GE7LMJPR74XH2VJ22ITM4I7BSMIIOI4TPPNM72A</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+					<wb:boxInfo>
+						<wb:boxtree>
+							<ce:boxnum>01000000102510622032900681</ce:boxnum>
+						</wb:boxtree>
+					</wb:boxInfo>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Водка "Беленькая" 0,25л.</pref:FullName>
+						<pref:ShortName>Водка "Беленькая" 0,25л.</pref:ShortName>
+						<pref:AlcCode>0015932000001190574</pref:AlcCode>
+						<pref:Capacity>0.25</pref:Capacity>
+						<pref:AlcVolume>40</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010000000313</oref:ClientRegId>
+								<oref:FullName>Акционерное общество "Бастион осн. 1942 г."</oref:FullName>
+								<oref:ShortName>АО "Бастион"</oref:ShortName>
+								<oref:INN>5904101820</oref:INN>
+								<oref:KPP>590401001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>59</oref:RegionCode>
+									<oref:description>Россия,,Пермский Край,,Пермь Город,,Героев Хасана Улица,104 Дом  , | Литер Б; Литер Б1, этаж 3, помещения №№ 1, 2, 4; Литер Б2, этаж 2, помещения №№ 15 – 17, 31, 33; Литер Б3; Литер Г3; Литер Г5; Литер Д, этаж 1, помещения №№ 5 – 7; Литер Е; Литер И</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>6</wb:Quantity>
+					<wb:Price>159.85</wb:Price>
+					<wb:Identity>8</wb:Identity>
+					<wb:FARegId>FA-000000048362863</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004797970760</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>198303798853600521001VCYWM7PNIOMVVNY2VUXFJBJQ6YAKSAEV4BUH5XKFCON2YSIH7GKFXYN67KBMYLYWLROSA6LWGFMW3VWUFV5Y2SZH4Q2RSDALOVJT45KSUZNCXFMWLJKQDBFYSSEZUFZGA</ce:amc>
+									<ce:amc>198303798853630521001KR77LTOVUMH34UC77PYTIZELSAM5GQAKGTIUTEROEHYV62YFHHRZNYGB44HOMNYQYHBGW5NJ3YANZN3RDDE5PSFW7DLDE6IKJV7UUB27XVNU2EAKCUN6TP7FAVNFCDDQY</ce:amc>
+									<ce:amc>198303798853650521001H4TBYA6AOTOJ57V4CB2HPHHD4YYM7ZAUSLIRB2BPOR5NM2OOBZQZFD67RSYZPTNT6YCKJLYBC3WSHNIXZ23YECVGW2DBH56Y3VH4KZNZBBCYQW5SZVPD5NZOEUUTQ6REQ</ce:amc>
+									<ce:amc>198303798853740521001IKLCEE35OF3JMNUYQNCWBPUAWY5ZNUEBUMA63FYGA5FANFYV7UO4IQOK2CO23MVKNA42IDZWZQEJEFWMH7L7JIIDXYY44KMDTWT2HNLDE5M5MYNOTPNS4QVEZZ7DV4E7I</ce:amc>
+									<ce:amc>198303798853750521001XZSIXZA6QFSYVSIHAF7GF5OZTIEMBAULX3NIRJDQ6T2QBXR3F6CWHIDZ3PCE2KJNSERTYDIBRU2CV3RNPBNJOIS63N5SBEH3SGFHK2QLIMTYVRCMQWZJZNGV7VLDUQKWY</ce:amc>
+									<ce:amc>198303798853810521001GGJ63OQCJWRDNNYZVGM2YNJFOYUQI67VLSUAAMF6XJNH2M3UHZGSLJGMVFLVGIQ4HG2JZIBH7RJIAJBVP7NUEOY2R246MUDO644NWHJBLBDDJCL56BZRRQX5WQATUJFWY</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Водка «ПУЗЫРЁК» МЯГКАЯ</pref:FullName>
+						<pref:ShortName>Водка «ПУЗЫРЁК» МЯГКАЯ</pref:ShortName>
+						<pref:AlcCode>0100606942420000005</pref:AlcCode>
+						<pref:Capacity>0.5</pref:Capacity>
+						<pref:AlcVolume>38</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010060694242</oref:ClientRegId>
+								<oref:FullName>Общество с ограниченной ответственностью "Чебоксарский ликеро-водочный завод"</oref:FullName>
+								<oref:ShortName>ООО "ЧЛВЗ"</oref:ShortName>
+								<oref:INN>2130179610</oref:INN>
+								<oref:KPP>213001001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>21</oref:RegionCode>
+									<oref:description>Россия,,Чувашская Республика - Чувашия,,Чебоксары Город,,Константина Иванова Улица,63 Дом  , | за исключением помещений 9 (S=6,1 кв.м), 10 (S=4,2 кв.м), 11 (S=7,0 кв.м), 13 (S=63,5 кв.м), №№ 17-44 (S=363,4 кв.м) в здании заводоуправления, 1 этаж, Литер А, кадастровый номер 21:01:010211:115; нежилого помещения (S=178,8 кв.м), кадастровый номер 21:01:010211:918</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>40</wb:Quantity>
+					<wb:Price>222</wb:Price>
+					<wb:Identity>9</wb:Identity>
+					<wb:FARegId>FA-000000048290474</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004620471575</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:boxnumber>01006069424210222000267020</ce:boxnumber>
+								<ce:amclist>
+									<ce:amc>187306650826171021001MKBVU7NJJRS3WAK3XKTTTZBSCY4T7Z6XJK235K53JY74626SIG4RNJNUKVOLXWNLNJ2HXLHKNS622QGOSVAIOKM3FHSJ7ODDMTHPGJOZSHIGRXLQECB7EVIU6QOIKZZSY</ce:amc>
+									<ce:amc>187306650826191021001CA63KX5HKY4TOHPFNCKIG5473UWO4F363NO5CMVVEEIOTRU2ZQPOWETJ4MRCN4ZF7WWX6K4PCAYWMC5QXGVZXBHAVTBQT35CNN4FPARVGQBUMLHX32B4D2FHIR4L4ETYI</ce:amc>
+									<ce:amc>187306650826211021001IVIA6P7BCL6BE7HUUC5LFQUYDMHXGDWLOYZPOUDCPNGMT4QIP5ZIJU2RQLFGOQC6FKYLDOHJSQO267JHXNIPNJKBN65BFXSHZGAC3IWGDHG3KIHHT53RY32OHZKV3RJ4Y</ce:amc>
+									<ce:amc>187306650826251021001SXANLHE2Q6C3ACF7C3IOOJHI7QNOK2FZXFIT5XKHPJVVO47546NP2B5FISVANOKU44SVVOLBRGQBXGMD6OZ2JMU3PC6QWXHKSE444YO3KBO6XQXV5MSJHPU2MDKTBRVOI</ce:amc>
+									<ce:amc>187306650826261021001PQ65DZ2P7JLJ7ZUDJ5BU2Z74KQQX73365LRJNNNJMHHP6TFPJOOIZX5DLRZE6YN7R46B2GXWV35BT5K4Y3DLMK7LBHY2PVOX7DYV6RK2BF4VLDLGZBXUEP2GDVAE7V2CY</ce:amc>
+									<ce:amc>187306650826271021001M7EDRSH3T2R25DLZH6M4ZZ52QEGLBHK277R2KGJQIP4ROVSQUG3G7TGQNXQCWGUGDNM4YQPTXTMKMITJLBYWYJNNHRXNPCOGHCPVS23RHFXJIORNOZTYUXBH3FASZ2JEQ</ce:amc>
+									<ce:amc>187306650826281021001D34NO6XBMQWNHOB2W4ADPICOP4NGDHEREPXFTS6SUPV7VXKFCZM5IGM6DRT3LVNXQAL7EZLOFLWELXUQZ2V5XSIQSW6T6N5OEQTYQIU4BCHUUGWVUDBXB2U5EKAMLIGVA</ce:amc>
+									<ce:amc>187306650826291021001YVOYUWRPD2M5W4LLARH54K57XATSAVQU2D265N444AN6HN7BWEXWOHAM53QHO2W5QQM2LUKD53DIE473PQOM5TYITL2QKNKJKTHHKMLUIKCSZEJDWQNMD3FTB5WL2ZNBY</ce:amc>
+									<ce:amc>187306650826301021001THNQ5SI7IRTVNF4HEUDG6NJSRIYL7XCBUGEGTQIIAKSZDX5CZHHQ6Z5DG7F3I3QO63JQAJJXMUNUDJIUNYYYLSALQDWBTO6U54IR5J7WLHSDFCZCZD32BCRXVULG7P5ZY</ce:amc>
+									<ce:amc>187306650826311021001VWCBOV3BG6AL2ZTSWMDWB4VDAIX3M22MQ3SECPEFAM7BMUP7LPHY5EZIVH55BHXXHE4WOLEAP4WZUUH354IKI45CRAP3ODF656CHLHM7H2ZXKWX5FOO3GP2DB6675DKEQ</ce:amc>
+									<ce:amc>187306650826321021001XM4UM3VNCF3RN3AWISM7ULZXCAVLUJ4K5247UUQTLQMHFCVMOCCRRZGDQTJ6QMFFZTD6ONPHOKI2BT355LGAHYA2KU4ZWRTQNHWUOTKYCQMZE755424CKNCKSEAEOKNGY</ce:amc>
+									<ce:amc>187306650826331021001X3FQXOAI7BEJNHDSXPW6DA3PDIRFYZMV5FYA74DJJ3V2IFKDF7WBS632WMRPACOUKBLC4PV5OFAWNFBFLGLCUY5IHOCJDROCDY7DIWJLGOZYFMWHBBNUFBQGAUKC5UKTA</ce:amc>
+									<ce:amc>187306650826341021001VO6GW4CFCRWOFZSCXHGULXWLFUC4S3I5C2F257KQT4ITKTJ7C4KKXRVVHWLSCJXAFUFJYZOGZGYJ7YJ3WRWOZSQGEQA6UMXMCTZW2LJWKAQ5ZNJVRND45G2KCBXWFPMLQ</ce:amc>
+									<ce:amc>187306650826351021001D4T75CCTCXQSGO632ZP37O5ZY4GWAIZWZS327PWW5MNV3HOYO2T6ZZ345JQTO6TYS53HPQUAOLR72BYR4AO6WI25OZRWF3TLQDKLTUEN644HYM2BNO7WAHOOYAJFXOPUA</ce:amc>
+									<ce:amc>187306650826361021001GBRS6QQ46MXVSKHZWXWJSWWRSQDQNGLCDGGQJYNSDURNPO4V2K2RGEZ2JLCRFG3AZGTKB4XDDJBUJZLR4UJJCUYMLKKGRN6EVDYDEWS5PJPEFJXMPU7PJCZJU52COX2LY</ce:amc>
+									<ce:amc>1873066508263710210014TXUL34RUJEDMTWZ4EDBV4LQ7E2E67RSP6ACJATHMB4567UCU7XZWSUQN2FG6OKGB74KKLCE3MK4YNMFIHZSH2E5RLANTXTOGHJZN6O2LZ24E4OLQZUJUAZVBDPSGOCUQ</ce:amc>
+									<ce:amc>1873066508263810210014DEUWRCO46W4LFPJELB4V4SPDMBBS4GWMC6RGB5NKTVYPSTXQXCJTXIEBDZSLBPQ3SWSMJRWCFUE5UEXKGABZ7QHPIVUU6GTA75DYR2YUUEKHVK3W3PSAUJXDKHCWIVXQ</ce:amc>
+									<ce:amc>187306650826401021001DNPYWC6S25F7TY3NMISNRTQLLUZYMH7EDLVJKUDT2AYTZYCCWNGHTE4JBCB2NWG76MMSQ5SDKL3YJS45WW7TF652VYDJC7OBB26AV6BTEG5BHAGCTI4GQTIH2KAXU4S2I</ce:amc>
+									<ce:amc>187306650826421021001JXOI6PNNQJHOFDAWXEL3BLAO5AL2NK3N7IVKM7MCEFAWGASMURUWKQDPRLVZLWCZRV2AGM5PKN2IN56BTIWJ2OWELGCMS7NCVERCAL5OLEKPE6CXSIK4DIJH7GSD7YJWA</ce:amc>
+									<ce:amc>187306650826441021001XEAGH7KCMFZVK52M2SVOP3L7WUU3GWWK3OESLJLQ6II6PNDHKX7HV7G3AOGAY4ECIGRXYUXL4LBZKNAU7XY5JL6M43JYEUKM7G6QQHVMP4M5JD5MBWK2KL6TAQ73IZAXQ</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+							<ce:boxpos>
+								<ce:boxnumber>01006069424210222000267049</ce:boxnumber>
+								<ce:amclist>
+									<ce:amc>187306650831571021001GXGGJOVCKOXLWAWAFYMUQ2XK4EESLFVDBNGM5ZHMKJB4TTGCVKMFQR5L3ED5AD3KUUP5RAM2TRO4Y4QH2QVUMWB3LM7FTLV5WISUWQUG4LAOFIL3XKDMHYFVWVUB2LGLY</ce:amc>
+									<ce:amc>187306650831611021001AEQPH7EIH434VG7YBFMIJR4PEQRUU7VLTBZMRFKMY5OMOXV6S33SK62YBQHDQQAQUX6SAG4GUW4AEXRKPXBG42PZ6PAHRBZO4G4OWQ4ZMH44GLCW7KHHU6SFO3ERE3WWY</ce:amc>
+									<ce:amc>187306650831661021001LON7C3H5FQ7PFBCOGQXBVV22IYYPTGNUG745USMJA5MQVPPGTZFZMJZTGQEZBBWCUOWLNZ4LYL772STL55GJUAGK5CDOQZVVQ2AW4CHWCWFLO4RJHCZOXALKQLEP3HDLA</ce:amc>
+									<ce:amc>187306650831671021001P6STXH3ALBJFFRL7B2LNGLQVTMEE43CD56L3HHTCSNTZQ3X6LU2VDYD2Z623WSIGQ4CZQIXANM4XTLKIPQ73VRRD7SIFRUKU6EAVNBBGMOPG3PKB7NTZIUFREFGNVIRSQ</ce:amc>
+									<ce:amc>187306650831681021001W73AL5D6WPYKQ5SUDW42JHG6XAYTIPLXY2MNP7GJ5V27UADYY2HHGIXMFI2BEFS4DG2KDOU2HU3IAZNYMTMQJUQDYFI7PGZRY6LYL46WBPF3CS22GC3FS5EKQRW5Z6UGI</ce:amc>
+									<ce:amc>187306650831691021001MQQGZI6QTCZS2YHHXOJLP32WRQ3QGX4OPET7GQAFDQMPJHQ2NFYJUEIN5Z4IXUBRU7SWM2KA2HQ7TUKB53XFR4K76VTVYCHUKZLC6UBRXMNWCKBLGQO5TJCZYPRVOK2EY</ce:amc>
+									<ce:amc>187306650831701021001ZSBDTDVHXWJDWWLV2XEPJPZ2G4HEJGH34V4LWKDYPWUDNHYTV6WCED6Y6PJPGDLK75HQMKHR4TM3GB3PM2U7ETJEOOYRIVLIYMNXHE3AW7F6REUG77MHGWX7LCOWHUUVQ</ce:amc>
+									<ce:amc>187306650831711021001OHRMEKNNTLWRSZ5Q3DPIPBSXOYGGOI5XG7HV6EI4GGNLF23RNUQYMDAPDW4QC4UTPDFX5LS6WTAZP4GA5YYSJGOL4LX2HFRAXIZIGBQYOF2ELNL7D6KJZQ2TQDO26YW2I</ce:amc>
+									<ce:amc>187306650831721021001OY5LVVM4W4VZQ42GFHFXFJP2XQOT2Q4VMSYGHG2RCIAI3TVDVDQHSOZXSIXD45L3XCOITAOXYF2A6UDPR3KAU4BMH5YGUASPC2AUU7NZHK4H5PTIVELOX2WGXUVVM6OEI</ce:amc>
+									<ce:amc>187306650831731021001XUMMIIEOZEPEOI7FEFGA2EANKE7C2Q2ARNG2L7QPKM2WWIOIBJEN2BIAYMIUYXDRO4JSL4ZT3UGRZRVTXWNWBLH3PEQAWDPZDO6CBA6HF66WJSQXHTX2HLZEAO3SIIC3Y</ce:amc>
+									<ce:amc>1873066508317410210017U3UOXRZED6KW37EIH2FQZOWNMNPGCDB6K6N7BKEIVI2UG63FFOEM6SPMHHHYWOFCPAYYSA4EXNYN42R5MPTOGBSLNKVHN2EZJSY2OF4K76SVDDH3VBHWHSWBPPVVFDYY</ce:amc>
+									<ce:amc>187306650831751021001MESFTIH3BULLPIKFEFMJF45KLIW77JYABA2A2HALRKHFJ4QIKTABPLXGBHC2OQFDZJO25X7H6JMLTO43WCTPHS4UCPKLUBHGGEDGPTNJJR4D4O5HLNLAYBJIQWPEMCY5Y</ce:amc>
+									<ce:amc>187306650831761021001RVSVJHGXRGBVFF63FXO5METDJMIGKBPXBT7AMW66Y6HRD3ZDSZBUUO5ZNLTP3RAMLPWLWX6DWIHTTDIPSYUCAAT6KOON2RBZNXQRYESLXUPLIUQQQJSUC3ZDBQEWBRPYA</ce:amc>
+									<ce:amc>187306650831791021001N2I5TC4E2DI2IE5IGAUCUWHFJ4VMJYVXA64ZCTKUEB4FFJPFL5NNPBOPZLPLHQWW26SD4TJAPKPW5QWBJH2WPLKUY4AWZB7OTO4LK5EJLNEPISJ5UNL72HEEEDP7TBK7Q</ce:amc>
+									<ce:amc>187306650831801021001BR3I3M7BHRA4WZD45IXBGSXZMMQNJDD6RUSLEMY7BGQKHY4JDCCO4LN3BKLQAVXOFEY6QM4IVJMGRFSWWK7IQPW266HPKQ3LFC4WVOOZBCLRUUE2JFTC23JBPDJMLYWNA</ce:amc>
+									<ce:amc>187306650831811021001DXOYX3JR3AUGNVMNLF53B3FYMYPANYR5ER2H7AETVWZPPQC6LIK4WDFV4QDM5EOIB5WZGMI4FMPTBWWWTFLYZAOTB657AYHQZNQDRSGKKA7VLRLSBPXJED4IIS3RTQOGI</ce:amc>
+									<ce:amc>187306650831831021001TNIB3XYZETGZCE3V6JAPR7I5YEL6ZIMYYBJX2URBD4F5OKSPWXRJPYD2KWWZ6ZSLUH6ZAMMCNI6JHVLF6UQ7WNCKP5PW3KYPJWVDMI7KMVHFF5AA2JP7KNHGXA346WP7A</ce:amc>
+									<ce:amc>187306650831841021001H2DRBKZLRV34RWJ4BBSRSX5DUEZVCFRVVM3UIESIZW3QYYDB4KHNPNT3PVE3ZY5G6NQ2EQRPF5MD4FSQRWL7ZVT6ET3YBA5YF7M26PYIW54SVYY5FBOTPWJFI4LR2JL4A</ce:amc>
+									<ce:amc>187306650831851021001GVFEMSQ5O6NQ2V6PGGME6YM6BY4SNJBXKEKERJMRIV3SVKPRGEKZDXEZAUNHS3WQUQV5PQF74ZYMQUMGMPXE5N3HCRXH2X6M67BLX263UISSU3O2RXRM7MPRPJBGTJ6MA</ce:amc>
+									<ce:amc>187306650831861021001UHEIK4GF3AZCBPQUTS77EQ74SAAJWZSDW4RLE4MJNC6OPX3G44HLGID6PLQ6PFICA3FXV225HGTEXJDKQ3ZWW5DWCSGBETYHPVP76PK7EACULEI57ZXI3GCIZJJXE5LII</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+					<wb:boxInfo>
+						<wb:boxtree>
+							<ce:boxnum>01006069424210222000267020</ce:boxnum>
+						</wb:boxtree>
+						<wb:boxtree>
+							<ce:boxnum>01006069424210222000267049</ce:boxnum>
+						</wb:boxtree>
+					</wb:boxInfo>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Водка "Пшеничная" стакан</pref:FullName>
+						<pref:ShortName>Водка "Пшеничная" стакан</pref:ShortName>
+						<pref:AlcCode>0032136000002531296</pref:AlcCode>
+						<pref:Capacity>0.1</pref:Capacity>
+						<pref:AlcVolume>40</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010060694242</oref:ClientRegId>
+								<oref:FullName>Общество с ограниченной ответственностью "Чебоксарский ликеро-водочный завод"</oref:FullName>
+								<oref:ShortName>ООО "ЧЛВЗ"</oref:ShortName>
+								<oref:INN>2130179610</oref:INN>
+								<oref:KPP>213001001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>21</oref:RegionCode>
+									<oref:description>Россия,,Чувашская Республика - Чувашия,,Чебоксары Город,,Константина Иванова Улица,63 Дом  , | за исключением помещений 9 (S=6,1 кв.м), 10 (S=4,2 кв.м), 11 (S=7,0 кв.м), 13 (S=63,5 кв.м), №№ 17-44 (S=363,4 кв.м) в здании заводоуправления, 1 этаж, Литер А, кадастровый номер 21:01:010211:115; нежилого помещения (S=178,8 кв.м), кадастровый номер 21:01:010211:918</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>200</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>10</wb:Quantity>
+					<wb:Price>57</wb:Price>
+					<wb:Identity>10</wb:Identity>
+					<wb:FARegId>FA-000000048708333</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004813535605</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>197301650808660421001URYTRCSXVFJB5MOBUUDR3KYEBI3F6LIFWHSAPOVXDZX6NOPDLD7UG37AXCHIZ3CE7XSO2XRUSX7WGG2OLKBKOYXYLUXY3UPESY5CO5XAWJQRZJ7PM7V2P43LXPYTYDETA</ce:amc>
+									<ce:amc>197301650809620421001HV5NZITXVDDXTE4OK7MZK4TA64D4KHNXLSGR2TMIQOTOJNPGNP5PTUOOW4CWMGAJZKFQU36GOJWVLZOFLNVHG5E4SMEFZGGEZHMZKYTZTZ5HHZCWFERDIXVMAFAY3MXTI</ce:amc>
+									<ce:amc>197301650809640421001AUDX346LBFYKASDMOVGH444AAE2FVM73MDTJRJN7XJYOLUOJ7MPM4E3TBB3MWEZSH7B3CLZIDGPALDAU2XIZEMIXOGR637IH3JQ762ES3TKU6JFUY2CQEUK37HRFT7AUY</ce:amc>
+									<ce:amc>197301650809690421001MOKXM4MXRPA53YJM7SX7ICGTT4YQC4NKM257QNAUXMXCG64JPI3Q5S2KY3KXLHZFEK7BAKSPNZRALOYSIZBROUYSO225FTJSOAH7DC6ZBWYRJCUEJKZDSCJMNFHZNBUUQ</ce:amc>
+									<ce:amc>197301650809700421001KFGQRGGNSGSB3JIEA5F7LPZ3DEPRQVVH7XGPUB2D3Y2FPBC4MNIZQHF6ECDWW63SGIAE2HUXYYZKROJEA64KXOFV3B6QS3FD2WM57PNY56KFXPI274D7NNL5IYIDXTBZI</ce:amc>
+									<ce:amc>197301650809710421001MKYU2EZLPRWDJS4WTSXC7J7SLIJJQ5BINN4NYL3CVKZC6NSSENPOMFAVAC7R6547EOKZE2RJRSA3VRSPJ6UT2LUPXG5XSLZTSOEBNK7QNAXYVJIPMH6BKR3DGYIJZMROA</ce:amc>
+									<ce:amc>197301650809720421001TJNLFXOQIDHFKTENFYL5PURIWI6LXYTXDNLPYUCMOFHCVXA5B6KEO5SKOFJ6M7M3JCRBZORYJHQCM27AHAHQYMPWD3UQSCZMA7DEITXQ4IAG5ALGS6OZA7KTBKZ5M3BUQ</ce:amc>
+									<ce:amc>197301650809730421001OUG237SX5XEKR32PV3GW5XQBSMZEIVBI6FCKKKFH53DHOUABVEL664HTDM2CY6IG2JHX46E3KGJEXWFLW4VMRYBS5VH7NJ3VF3ERZVFIA54KNRZLOGTJO4OSI7H7QFVTA</ce:amc>
+									<ce:amc>1973016508097504210012V7XST5HVLCZOB33QIVW24Q6DAAFCRX6LN7XGWRQ7RURRFR3CD5ZSO3VRKHZGMRISZWCFK4IJUCWUXRHHQYFBFCGYVXYH2JADYEDWREYVKKA3QJ5IZYMBXRH6POZMJ36Y</ce:amc>
+									<ce:amc>197301650809760421001ELTZPMFUR3AXR2QH7LJFWLBR74DELWIPJTMWMN64VYVK4DBVGXY6R74KIE7BH7LFDKLIR5YVW5HJGCUXQOCZF4HQN2T2LFV2E4FV23YPSLRIJGIEQBXYETQBSQNG3O4JA</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+				<wb:Position>
+					<wb:Product>
+						<pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Плодовый алкогольный напиток газированный сладкий "Лаветти Розе"</pref:FullName>
+						<pref:ShortName>Плодовый алкогольный напиток газированный сладкий "Лаветти Розе"</pref:ShortName>
+						<pref:AlcCode>0000000000040935532</pref:AlcCode>
+						<pref:Capacity>0.75</pref:Capacity>
+						<pref:AlcVolume>8</pref:AlcVolume>
+						<pref:Producer>
+							<oref:UL>
+								<oref:ClientRegId>010000000203</oref:ClientRegId>
+								<oref:FullName>Общество с ограниченной ответственностью "Союз-Вино"</oref:FullName>
+								<oref:ShortName>ООО "Союз-Вино"</oref:ShortName>
+								<oref:INN>2337028367</oref:INN>
+								<oref:KPP>233701001</oref:KPP>
+								<oref:address>
+									<oref:Country>643</oref:Country>
+									<oref:RegionCode>23</oref:RegionCode>
+									<oref:description>РОССИЯ,,КРАСНОДАРСКИЙ КРАЙ,Крымский р-н,,Варениковская ст-ца,Леваневского ул,д. 100,, | (за исключением склада тары, Литера К1, S=622,9 кв.м) | (за исключением склада тары, литера К1, S=622,9 кв.м, Литер Л, нежилое здание, назначение: нежилое, этаж 1 (Коньячный цех) (S=711,1 кв. м) | (за исключением склада тары, Литера К1, S=622,9 кв.м, Литер Л, нежилое здание, назначение: нежилое, этаж 1 (Коньячный цех) (S=711,1 кв. м)) | (за исключением склада тары, Литера К1, S=622,9 кв.м; коньячного цеха, Литер Л, S=711,1 кв.м) | (за исключением склада тары, литера К1, S=622,9 кв.м; Литер Л, нежилое здание, назначение: нежилое, этаж 1 (Коньячный цех) (S=711,1 кв. м)) | литер К 1 (S=622,9 кв.м)</oref:description>
+								</oref:address>
+							</oref:UL>
+						</pref:Producer>
+						<pref:ProductVCode>461</pref:ProductVCode>
+					</wb:Product>
+					<wb:Quantity>2</wb:Quantity>
+					<wb:Price>175</wb:Price>
+					<wb:Identity>11</wb:Identity>
+					<wb:FARegId>FA-000000047843704</wb:FARegId>
+					<wb:InformF2>
+						<ce:F2RegId>FB-000004406759430</ce:F2RegId>
+						<ce:MarkInfo>
+							<ce:boxpos>
+								<ce:amclist>
+									<ce:amc>190300182772781120001WC5CF7AGDE3G5XFY6NNWH7CA6MYWV7DN75D2CNKSM5OLYXHJOKQI4ZOERF43733ZZNVJSFBJE6SPOB7SWTEDUBJCU6IP5TFDMRAHXPL2J4DB5QSVZX6DIDEW7BWLSDB4Y</ce:amc>
+									<ce:amc>19030018277286112000147PP2PEDM4HKGS26XYHXCPE3UAW4IF4MVYFW43W5EWTTKMWPTI5MOWWE2IEOV7UR2LAI5DVP4B6SDXXGPXOBLE4CZFTR2WFB7CS33UXBG4Q2JB3EON3B3SJSGBZ6BL5QQ</ce:amc>
+								</ce:amclist>
+							</ce:boxpos>
+						</ce:MarkInfo>
+					</wb:InformF2>
+				</wb:Position>
+			</wb:Content>
+		</ns:WayBill_v4>
+	</ns:Document>
+</ns:Documents>
