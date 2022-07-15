@@ -52,6 +52,8 @@ for url in root.findall('url'):
 #params = [('title', 'Waybill_v4.xml'), ('sklad_id', args.sklad_id)]
 if len(files):
     params = {'fsrar_id': fsrar_id}
+    print(files)
+    print(params)
     q = requests.post("https://kirsa.9733.ru/file/",
                       files=files,
     #                  headers=headers,
