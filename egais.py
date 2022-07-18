@@ -307,7 +307,7 @@ def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://loc
             q = nattn(utm_url, fsrar_id)
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
-            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x.id, 'transport_id': transport_id, 'sign': sign}
+            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id, 'sign': sign}
             q = requests.post(url, params=params)
             print(x)
             print(q.text)
