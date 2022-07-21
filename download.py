@@ -30,6 +30,7 @@ root = ET.fromstring(q.text)
 
 files = dict()
 i = 0
+new_last_id = last_id
 for url in root.findall('url'):
     m = re.match(r"http:\/\/.*\/opt\/out\/(.*)\/(\d+)", url.text)
     if m:
@@ -38,7 +39,7 @@ for url in root.findall('url'):
         if id <= last_id:
             print("skip, id:", id)
             continue
-        last_id = id
+        new_last_id = id
 
     print(id, url.text)
     q = requests.get(url.text)
@@ -60,7 +61,7 @@ if len(files):
                       params=params)
     assert q.status_code == 200
     f = open(fname, 'w')
-    f.write(str(last_id))
+    f.write(str(new_last_id))
     f.close()
 print('download ok')
 
