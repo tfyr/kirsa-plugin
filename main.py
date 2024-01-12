@@ -1,13 +1,12 @@
-import datetime
-import json
+# import datetime
+# import json
 import xml.etree.ElementTree as ET
-import xml.dom.minidom
+# import xml.dom.minidom
 import argparse
 import time
 import requests
 
-from egais import create_accept_act_v4, send_query, parse_simple_response, create_query_resend_doc, get_fsrar_id, resend_doc, act3, act4, query_rests_v2, query_bcode, nattn, query_check_bcodes
-from parseRestShop import parse_rests_v2
+from egais import parse_simple_response, get_fsrar_id, resend_doc, act3, act4, query_rests_v2, query_bcode, nattn, query_check_bcodes
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cmd', help='command like resend, act')

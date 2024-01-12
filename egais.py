@@ -75,22 +75,179 @@ def create_accept_act_v3(fsrar_id, act_number, act_date, wb_reg_id, note):
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
-def create_accept_act_v4(fsrar_id, act_number, act_date, wb_reg_id, note):
+def create_waybill_act_v4(fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None, rejected=False):
     doc = Doc(fsrar_id)
 
     wa_namespace = "http://fsrar.ru/WEGAIS/ActTTNSingle_v4"
+    ce_namespace = "http://fsrar.ru/WEGAIS/CommonV3"
     ET.register_namespace('wa', wa_namespace)
+    ET.register_namespace('ce', ce_namespace)
 
     waybill_act = ET.SubElement(doc.document, "ns:WayBillAct_v4")
     header = ET.SubElement(waybill_act, "{%s}Header" % wa_namespace)
-    ET.SubElement(header, "wa:IsAccept").text = 'Accepted'
+    if rejected:
+        ET.SubElement(header, "wa:IsAccept").text = 'Rejected'
+    else:
+        ET.SubElement(header, "wa:IsAccept").text = 'Accepted' if missed_amc is None else 'Differences'
     ET.SubElement(header, "wa:ACTNUMBER").text = act_number
     ET.SubElement(header, "wa:ActDate").text = act_date
     ET.SubElement(header, "wa:WBRegId").text = wb_reg_id
     ET.SubElement(header, "wa:Note").text = note
-    ET.SubElement(waybill_act, "wa:Content")
+    content = ET.SubElement(waybill_act, "wa:Content")
+    if missed_amc is not None:
+        for missed in missed_amc:
+            position = ET.SubElement(content, "wa:Position")
+            ET.SubElement(position, "wa:Identity").text = str(missed['identity'])
+            ET.SubElement(position, "wa:InformF2RegId").text = missed['inform_f2_reg_id']
+            ET.SubElement(position, "wa:RealQuantity").text = str(missed['real_quantity'])
+            if 'amc' in missed:
+                mark_info = ET.SubElement(position, "wa:MarkInfo")
+                for mark in missed['amc']:
+                    ET.SubElement(mark_info, "{%s}amc" % ce_namespace).text = mark
     transport = ET.SubElement(waybill_act, "wa:Transport")
     ET.SubElement(transport, "wa:ChangeOwnership").text="NotChange"
+    tree = ET.ElementTree(doc.documents)
+    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+
+def create_act_write_off_v3(fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None):
+    doc = Doc(fsrar_id)
+
+    wa_namespace = "http://fsrar.ru/WEGAIS/ActTTNSingle_v4"
+    ce_namespace = "http://fsrar.ru/WEGAIS/CommonV3"
+    awr_namespace = "http://fsrar.ru/WEGAIS/ActWriteOff_v3"
+    ET.register_namespace('wa', wa_namespace)
+    ET.register_namespace('ce', ce_namespace)
+    ET.register_namespace('awr', awr_namespace)
+
+    act_wroiteoff = ET.SubElement(doc.document, "ns:ActWriteOff_v3")
+    ET.SubElement(act_wroiteoff, "{%s}Identity" % awr_namespace).text = '1'
+    header = ET.SubElement(act_wroiteoff, "{%s}Header" % wa_namespace)
+    ET.SubElement(header, "awr:ActNumber").text = act_number
+    ET.SubElement(header, "awr:ActDate").text = act_date
+    ET.SubElement(header, "awr:TypeWriteOff").text = 'Недостача'
+    ET.SubElement(header, "awr:Note").text = note
+    content = ET.SubElement(act_wroiteoff, "wa:Content")
+    if missed_amc is not None:
+        for missed in missed_amc:
+            position = ET.SubElement(content, "wa:Position")
+            ET.SubElement(position, "wa:Identity").text = str(missed['identity'])
+            ET.SubElement(position, "wa:InformF2RegId").text = missed['inform_f2_reg_id']
+            ET.SubElement(position, "wa:RealQuantity").text = str(missed['real_quantity'])
+            if 'amc' in missed:
+                mark_info = ET.SubElement(position, "wa:MarkInfo")
+                for mark in missed['amc']:
+                    ET.SubElement(mark_info, "{%s}amc" % ce_namespace).text = mark
+    transport = ET.SubElement(act_wroiteoff, "wa:Transport")
+    ET.SubElement(transport, "wa:ChangeOwnership").text="NotChange"
+    tree = ET.ElementTree(doc.documents)
+    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+'''
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:Documents Version="1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ns= "http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01"
+	xmlns:pref="http://fsrar.ru/WEGAIS/ProductRef_v2"
+	xmlns:awr="http://fsrar.ru/WEGAIS/ActWriteOff_v3"
+	xmlns:ce="http://fsrar.ru/WEGAIS/CommonV3"
+>
+	<ns:Owner>
+		<ns:FSRAR_ID>010000000435</ns:FSRAR_ID>
+	</ns:Owner>
+	<ns:Document>
+		<ns:ActWriteOff_v3>
+			<awr:Identity>456</awr:Identity>
+			<awr:Header>
+				<awr:ActNumber>10</awr:ActNumber>
+				<awr:ActDate>2015-10-08</awr:ActDate>
+				<awr:TypeWriteOff>Недостача</awr:TypeWriteOff>
+				<awr:Note>текст комментария</awr:Note>
+			</awr:Header>
+			<awr:Content>
+				<awr:Position>
+					<awr:Identity>1</awr:Identity>
+					<awr:Quantity>4</awr:Quantity>
+					<awr:InformF1F2>
+						<awr:InformF2>
+							<pref:F2RegId>FB-000000000000304</pref:F2RegId>
+						</awr:InformF2>
+					</awr:InformF1F2>
+					<awr:MarkCodeInfo>
+						<ce:amc>09001785400000118984310PX8051522100000476712617218613594213116182124151</ce:amc>
+						<ce:amc>09001785400000118984310PX8051522100000476712617218613594213116182124152</ce:amc>
+						<ce:amc>09001785400000118984310PX8051522100000476712617218613594213116182124153</ce:amc>
+						<ce:amc>09001785400000118984310PX8051522100000476712617218613594213116182124154</ce:amc>
+					</awr:MarkCodeInfo>
+				</awr:Position>
+				<awr:Position>
+					<awr:Identity>2</awr:Identity>
+					<awr:Quantity>1</awr:Quantity>
+					<awr:InformF1F2>
+						<awr:InformF2>
+							<pref:F2RegId>FB-000000000000305</pref:F2RegId>
+						</awr:InformF2>
+					</awr:InformF1F2>
+					<awr:MarkCodeInfo>
+						<ce:amc>09001785400000118984310PX8051522100000476712617218613594213116182124155</ce:amc>
+					</awr:MarkCodeInfo>
+				</awr:Position>
+			</awr:Content>
+		</ns:ActWriteOff_v3>
+	</ns:Document>
+</ns:Documents>
+'''
+
+
+def create_write_off_shop_v2(fsrar_id, identity, act_number, act_date, note, xtype, positions=None,):
+    doc = Doc(fsrar_id)
+
+    awr_namespace = "http://fsrar.ru/WEGAIS/ActWriteOffShop_v2"
+    ce_namespace = "http://fsrar.ru/WEGAIS/CommonV3"
+    pref_namespace = "http://fsrar.ru/WEGAIS/ProductRef_v2"
+
+    ET.register_namespace('awr', awr_namespace)
+    ET.register_namespace('ce', ce_namespace)
+    ET.register_namespace('pref', pref_namespace)
+
+    write_off = ET.SubElement(doc.document, "ns:ActWriteOffShop_v2")
+    ET.SubElement(write_off, "awr:Identity").text = identity
+    header = ET.SubElement(write_off, "{%s}Header" % awr_namespace)
+    ET.SubElement(header, "awr:ActNumber").text = act_number
+    ET.SubElement(header, "awr:ActDate").text = act_date
+    ET.SubElement(header, "awr:TypeWriteOff").text = xtype
+    ET.SubElement(header, "awr:Note").text = note
+    content = ET.SubElement(write_off, "awr:Content")
+
+    i = 1
+    for p in positions:
+        position = ET.SubElement(content, "awr:Position")
+        ET.SubElement(position, "awr:Identity").text = str(i)
+        ET.SubElement(position, "awr:Quantity").text = str(p['quantity'])
+        product = ET.SubElement(position, "awr:Product" )
+        ET.SubElement(product, "{%s}UnitType"% pref_namespace).text = 'Packed'
+        ET.SubElement(product, "pref:Type").text = 'АП'
+        ET.SubElement(product, "pref:FullName").text = p['FullName']
+        ET.SubElement(product, "pref:ShortName").text = None
+        ET.SubElement(product, "pref:AlcCode").text = p['AlcCode']
+        ET.SubElement(product, "pref:AlcVolume").text = p['AlcVolume']
+        ET.SubElement(product, "pref:Capacity").text = p['Capacity']
+        ET.SubElement(product, "pref:ProductVCode").text = p['ProductVCode']
+
+        '''
+                        <pref:UnitType>Packed</pref:UnitType>
+						<pref:Type>АП</pref:Type>
+						<pref:FullName>Коньяк "Вершины Кавказа" 5-ти летний 1.0000 л.</pref:FullName>
+						<pref:ShortName />
+						<pref:AlcCode>0017878000001312143</pref:AlcCode>
+						<pref:Capacity>1.000</pref:Capacity>
+						<pref:ProductVCode>АП</pref:ProductVCode>'''
+
+        marks = ET.SubElement(position, "awr:MarkCodeInfo")
+        for m in p['marks']:
+            ET.SubElement(marks, "MarkCode").text = m
+
+        i += 1
     tree = ET.ElementTree(doc.documents)
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
@@ -188,15 +345,39 @@ def act3(utm_url, fsrar_id, ttn):
     return send_query(xml_str, utm_url, "WayBillAct_v3")
 
 
-def act4(utm_url, fsrar_id, ttn):
+def act4(utm_url, fsrar_id, ttn, reject=False):
     global handmade
-    xml_str = create_accept_act_v4(fsrar_id,
+    missed_amc = None
+    # missed_amc = list()
+    # missed_amc.append({'identity': 146485104, 'inform_f2_reg_id': 'FB-000005796838897', 'real_quantity': 0,})
+
+    xml_str = create_waybill_act_v4(fsrar_id,
                                    "000017",
-                                   datetime.datetime.now().strftime("%Y-%m-%d"),
-                                   ttn,
-                                   handmade)
+                                    datetime.datetime.now().strftime("%Y-%m-%d"),
+                                    ttn,
+                                    handmade,
+                                    missed_amc,
+                                    reject,
+                                    )
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
     return send_query(xml_str, utm_url, "WayBillAct_v4")
+
+
+def write_off_shop_v2(utm_url, fsrar_id, positions):
+    global handmade
+    # missed_amc = list()
+    # missed_amc.append({'identity': 146485104, 'inform_f2_reg_id': 'FB-000005796838897', 'real_quantity': 0,})
+
+    xml_str = create_write_off_shop_v2(fsrar_id,
+                                       "1",
+                                       "000017",
+                                       datetime.datetime.now().strftime("%Y-%m-%d"),
+                                       handmade,
+                                       "Порча",  # '[Пересортица, Недостача, Уценка, Порча, Потери, Проверки, Арест, Иные цели, Реализация, Производственные потери]'. It must be a value from the enumeration
+                                       positions,
+                                    )
+    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
+    # return send_query(xml_str, utm_url, "WayBillAct_v4")
 
 
 def query_rests_v2(utm_url, fsrar_id,):
@@ -243,7 +424,6 @@ def query_check_bcodes(utm_url, fsrar_id, fn):
         xml_str = ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
         print(xml.dom.minidom.parseString(xml_str).toprettyxml())
         return send_query(xml_str, utm_url, "QueryFilter")
-
 
 
 def xxx():
