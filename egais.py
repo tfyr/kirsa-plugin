@@ -252,6 +252,44 @@ def create_write_off_shop_v2(fsrar_id, identity, act_number, act_date, note, xty
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
+def create_write_off_v3(fsrar_id, identity, act_number, act_date, note, xtype, positions=None,):
+    doc = Doc(fsrar_id)
+
+    awr_namespace = "http://fsrar.ru/WEGAIS/ActWriteOff_v3"
+    ce_namespace = "http://fsrar.ru/WEGAIS/CommonV3"
+    pref_namespace = "http://fsrar.ru/WEGAIS/ProductRef_v2"
+
+    ET.register_namespace('awr', awr_namespace)
+    ET.register_namespace('ce', ce_namespace)
+    ET.register_namespace('pref', pref_namespace)
+
+    write_off = ET.SubElement(doc.document, "ns:ActWriteOff_v3")
+    ET.SubElement(write_off, "awr:Identity").text = identity
+    header = ET.SubElement(write_off, "{%s}Header" % awr_namespace)
+    ET.SubElement(header, "awr:ActNumber").text = act_number
+    ET.SubElement(header, "awr:ActDate").text = act_date
+    ET.SubElement(header, "awr:TypeWriteOff").text = xtype
+    ET.SubElement(header, "awr:Note").text = note
+    content = ET.SubElement(write_off, "awr:Content")
+
+    i = 1
+
+    for p in positions:
+        position = ET.SubElement(content, "awr:Position")
+        ET.SubElement(position, "awr:Identity").text = str(i)
+        ET.SubElement(position, "awr:Quantity").text = str(p['quantity'])
+        inform_f1_f2 = ET.SubElement(position, "awr:InformF1F2" )
+        inform_f2 = ET.SubElement(inform_f1_f2, "awr:InformF2")
+        ET.SubElement(inform_f2, "{%s}F2RegId"  % pref_namespace).text = p['F2RegId']
+        marks = ET.SubElement(position, "awr:MarkCodeInfo")
+        for m in p['marks']:
+            ET.SubElement(marks, "{%s}amc" % ce_namespace).text = m
+
+        i += 1
+    tree = ET.ElementTree(doc.documents)
+    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+
 def create_query_resend_doc(fsrar_id, ttn):
     doc = Doc(fsrar_id)
 
@@ -378,6 +416,22 @@ def write_off_shop_v2(utm_url, fsrar_id, positions):
                                     )
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
     # return send_query(xml_str, utm_url, "WayBillAct_v4")
+
+def write_off_v3(utm_url, fsrar_id, positions, act_number):
+    global handmade
+    # missed_amc = list()
+    # missed_amc.append({'identity': 146485104, 'inform_f2_reg_id': 'FB-000005796838897', 'real_quantity': 0,})
+
+    xml_str = create_write_off_v3(fsrar_id,
+                                       "1",
+                                       act_number,
+                                       datetime.datetime.now().strftime("%Y-%m-%d"),
+                                       handmade,
+                                       "Недостача",  # '[Пересортица, Недостача, Уценка, Порча, Потери, Проверки, Арест, Иные цели, Реализация, Производственные потери]'. It must be a value from the enumeration
+                                       positions,
+                                    )
+    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
+    return send_query(xml_str, utm_url, "ActWriteOff_v3")
 
 
 def query_rests_v2(utm_url, fsrar_id,):
