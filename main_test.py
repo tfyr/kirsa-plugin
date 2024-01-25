@@ -72,10 +72,14 @@ class TestWaybill4(unittest.TestCase):
         positions = [
             {
                 'quantity': 2,
+                'price': 150.00,
+                'pack_id': 'паллета',
+                'party': 'партия №1',
+                'FARegId': 'FA...',
                 'F2RegId': 'FB-000006385720362',
-            }
+            },
         ]
-        waybill_v4('http://tasht:8080', '030000555605', positions, "18")
+        waybill_v4('http://localhost:8080', '030000687073', positions, "18")
 
 
 class TestEgaisAction(unittest.TestCase):
