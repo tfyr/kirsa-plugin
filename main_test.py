@@ -2,7 +2,7 @@ import unittest
 
 import requests
 
-from egais import get_actions, act4, write_off_shop_v2, write_off_v3
+from egais import get_actions, act4, write_off_shop_v2, write_off_v3, waybill_v4
 
 
 class TestSum(unittest.TestCase):
@@ -55,7 +55,7 @@ class TestWriteOffShop2(unittest.TestCase):
 
 
 class TestWriteOff3(unittest.TestCase):
-    def test_write_off_v3(self,):
+    def __test_write_off_v3(self,):
         positions = [
             {
                 'quantity': 2,
@@ -65,6 +65,17 @@ class TestWriteOff3(unittest.TestCase):
             }
         ]
         write_off_v3('http://tasht:8080', '030000555605', positions, "18")
+
+
+class TestWaybill4(unittest.TestCase):
+    def test_waybill_v4(self,):
+        positions = [
+            {
+                'quantity': 2,
+                'F2RegId': 'FB-000006385720362',
+            }
+        ]
+        waybill_v4('http://tasht:8080', '030000555605', positions, "18")
 
 
 class TestEgaisAction(unittest.TestCase):

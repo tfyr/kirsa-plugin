@@ -110,6 +110,36 @@ def create_waybill_act_v4(fsrar_id, act_number, act_date, wb_reg_id, note, misse
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
+def create_waybill_v4(fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None, rejected=False):
+    doc = Doc(fsrar_id)
+
+    wa_namespace = "http://fsrar.ru/WEGAIS/ActTTNSingle_v4"
+    ce_namespace = "http://fsrar.ru/WEGAIS/CommonV3"
+    ET.register_namespace('wa', wa_namespace)
+    ET.register_namespace('ce', ce_namespace)
+
+    waybill_act = ET.SubElement(doc.document, "ns:WayBill_v4")
+    header = ET.SubElement(waybill_act, "{%s}Header" % wa_namespace)
+    ET.SubElement(header, "wa:ACTNUMBER").text = act_number
+    ET.SubElement(header, "wa:ActDate").text = act_date
+    ET.SubElement(header, "wa:WBRegId").text = wb_reg_id
+    ET.SubElement(header, "wa:Note").text = note
+    content = ET.SubElement(waybill_act, "wa:Content")
+    for pos in positions:
+        position = ET.SubElement(content, "wa:Position")
+        ET.SubElement(position, "wa:Identity").text = str(missed['identity'])
+        ET.SubElement(position, "wa:InformF2RegId").text = missed['inform_f2_reg_id']
+        ET.SubElement(position, "wa:RealQuantity").text = str(missed['real_quantity'])
+        if 'amc' in missed:
+            mark_info = ET.SubElement(position, "wa:MarkInfo")
+            for mark in missed['amc']:
+                ET.SubElement(mark_info, "{%s}amc" % ce_namespace).text = mark
+    transport = ET.SubElement(waybill_act, "wa:Transport")
+    ET.SubElement(transport, "wa:ChangeOwnership").text="NotChange"
+    tree = ET.ElementTree(doc.documents)
+    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+
 def create_act_write_off_v3(fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None):
     doc = Doc(fsrar_id)
 
@@ -433,6 +463,19 @@ def write_off_v3(utm_url, fsrar_id, positions, act_number):
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
     return send_query(xml_str, utm_url, "ActWriteOff_v3")
 
+
+def waybill_v4(utm_url, fsrar_id, positions, act_number):
+    global handmade
+    xml_str = create_waybill_v4(fsrar_id,
+                                       "1",
+                                       act_number,
+                                       datetime.datetime.now().strftime("%Y-%m-%d"),
+                                       handmade,
+                                       "Недостача",  # '[Пересортица, Недостача, Уценка, Порча, Потери, Проверки, Арест, Иные цели, Реализация, Производственные потери]'. It must be a value from the enumeration
+                                       positions,
+                                    )
+    print(xml.dom.minidom.parseString(xml_str).toprettyxml())
+    # return send_query(xml_str, utm_url, "ActWriteOff_v3")
 
 def query_rests_v2(utm_url, fsrar_id,):
     global handmade
