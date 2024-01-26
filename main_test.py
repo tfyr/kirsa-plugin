@@ -4,6 +4,18 @@ import requests
 
 from egais import get_actions, act4, write_off_shop_v2, write_off_v3, waybill_v4
 
+ooo_dionis = {
+            'ClientRegId': '030000687073',
+            'INN': '0201014099',
+            'KPP': '745645002',
+            'FullName': 'Общество с ограниченной ответственностью "Дионис"',
+            'ShortName': 'ООО "Дионис"',
+            'address': {
+                'Country': '643',
+                'RegionCode': '74',
+                'description': 'Россия, 455000, Челябинская обл, г. Магнитогорск, ул. Автомобилистов, д. 8г'
+            }
+        }
 
 class TestSum(unittest.TestCase):
     def __test_send_waybill(self, ):
@@ -71,15 +83,51 @@ class TestWaybill4(unittest.TestCase):
     def test_waybill_v4(self,):
         positions = [
             {
-                'quantity': 2,
-                'price': 150.00,
-                'pack_id': 'паллета',
-                'party': 'партия №1',
-                'FARegId': 'FA...',
-                'F2RegId': 'FB-000006385720362',
+                'quantity': 240,
+                'price': 53.50,
+                'FARegId': 'FA-000000049132760',
+                'F2RegId': 'FB-000005018983051',
+            },
+            {
+                'quantity': 120,
+                'price': 53.00,
+                'FARegId': 'FA-000000052088878',
+                'F2RegId': 'FB-000006359834334',
+            },
+            {
+                'quantity': 120,
+                'price': 53.50,
+                'FARegId': 'FA-000000052220381',
+                'F2RegId': 'FB-000006493875295',
             },
         ]
-        waybill_v4('http://localhost:8080', '030000687073', positions, "18")
+        shipper = ooo_dionis
+        consignee = {
+            'ClientRegId': '030000729849',
+            'INN': '742801598687',
+            'KPP': '',
+            'FullName': 'ИП Аюпова Ирина Николаевна',
+            'ShortName': 'ИП Аюпова Ирина Николаевна',
+            'address': {
+                'Country': '643',
+                'RegionCode': '74',
+                'description': 'Россия, 455000, Челябинская обл, г. Магнитогорск, ул. Ворошилова, д. 9а'
+            },
+        }
+
+        transport = {
+            'TRAN_TYPE': 'Автомобиль',
+            'TRANSPORT_TYPE': 'car',
+            'TRAN_COMPANY': 'ООО "Дионис", ИНН/КПП: 0201014099/745645002',
+            'TRANSPORT_REGNUMBER': 'Лада Ларгус, е885ху174',
+            'TRAN_CUSTOMER': 'ООО "Дионис"',
+            'TRAN_DRIVER': 'Палагутин И.В.',
+            'TRAN_LOADPOINT': '643,455000,74,,МАГНИТОГОРСК Г,,АВТОМОБИЛИСТОВ УЛ,8Г,,',
+            'TRAN_UNLOADPOINT': 'Россия, 455000, Магнитогорск, ул. Ворошилова 9а',
+            'TRAN_FORWARDER': 'Палагутин И.В.',
+        }
+
+        waybill_v4('http://localhost:8080', '030000687073', shipper, consignee, transport, positions, "18", 'Договор №101 от 05.01.2024')
 
 
 class TestEgaisAction(unittest.TestCase):

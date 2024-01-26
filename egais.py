@@ -110,12 +110,62 @@ def create_waybill_act_v4(fsrar_id, act_number, act_date, wb_reg_id, note, misse
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
 
-def create_waybill_v4(fsrar_id, number, identity, date, note, positions):
+def add_shipper(header, shipper):
+    oref_namespace = "http://fsrar.ru/WEGAIS/ClientRef_v2"
+    ET.register_namespace("oref", oref_namespace)
+    c = ET.SubElement(header, "wb:Shipper")
+    ul = ET.SubElement(c, "{%s}UL" % oref_namespace)
+    ET.SubElement(ul, "oref:ClientRegId").text = shipper['ClientRegId']
+    ET.SubElement(ul, "oref:INN").text = shipper['INN']
+    ET.SubElement(ul, "oref:KPP").text = shipper['KPP']
+    ET.SubElement(ul, "oref:FullName").text = shipper['FullName']
+    ET.SubElement(ul, "oref:ShortName").text = shipper['ShortName']
+    address = ET.SubElement(ul, "oref:address")
+    ET.SubElement(address, "oref:Country").text = shipper['address']['Country']
+    ET.SubElement(address, "oref:RegionCode").text = shipper['address']['RegionCode']
+    ET.SubElement(address, "oref:description").text = shipper['address']['description']
+
+
+def add_consignee(header, consignee):
+    oref_namespace = "http://fsrar.ru/WEGAIS/ClientRef_v2"
+    ET.register_namespace("oref", oref_namespace)
+    c = ET.SubElement(header, "wb:Consignee")
+    ul = ET.SubElement(c, "{%s}FL" % oref_namespace)
+    ET.SubElement(ul, "oref:ClientRegId").text = consignee['ClientRegId']
+    ET.SubElement(ul, "oref:INN").text = consignee['INN']
+    #ET.SubElement(ul, "oref:KPP").text = consignee['KPP']
+    ET.SubElement(ul, "oref:FullName").text = consignee['FullName']
+    ET.SubElement(ul, "oref:ShortName").text = consignee['ShortName']
+    address = ET.SubElement(ul, "oref:address")
+    ET.SubElement(address, "oref:Country").text = consignee['address']['Country']
+    ET.SubElement(address, "oref:RegionCode").text = consignee['address']['RegionCode']
+    ET.SubElement(address, "oref:description").text = consignee['address']['description']
+
+
+def add_transport(header, transport):
+    oref_namespace = "http://fsrar.ru/WEGAIS/ClientRef_v2"
+    ET.register_namespace("oref", oref_namespace)
+    tran = ET.SubElement(header, "wb:Transport")
+    ET.SubElement(tran, "wb:ChangeOwnership").text = 'NotChange'
+    ET.SubElement(tran, "wb:TRAN_TYPE").text = transport['TRAN_TYPE']
+    ET.SubElement(tran, "wb:TRANSPORT_TYPE").text = transport['TRANSPORT_TYPE']
+    ET.SubElement(tran, "wb:TRAN_COMPANY").text = transport['TRAN_COMPANY']
+    ET.SubElement(tran, "wb:TRANSPORT_REGNUMBER").text = transport['TRANSPORT_REGNUMBER']
+    ET.SubElement(tran, "wb:TRAN_CUSTOMER").text = transport['TRAN_CUSTOMER']
+    ET.SubElement(tran, "wb:TRAN_DRIVER").text = transport['TRAN_DRIVER']
+    ET.SubElement(tran, "wb:TRAN_LOADPOINT").text = transport['TRAN_LOADPOINT']
+    ET.SubElement(tran, "wb:TRAN_UNLOADPOINT").text = transport['TRAN_UNLOADPOINT']
+    ET.SubElement(tran, "wb:TRAN_FORWARDER").text = transport['TRAN_FORWARDER']
+
+
+def create_waybill_v4(fsrar_id, number, identity, date, note, shipper, consignee, transport, positions, base):
     doc = Doc(fsrar_id)
 
     wb_namespace = "http://fsrar.ru/WEGAIS/TTNSingle_v4"
     ce_namespace = "http://fsrar.ru/WEGAIS/CommonV3"
-    ET.register_namespace('wa', wb_namespace)
+    pref_namespace = "http://fsrar.ru/WEGAIS/ProductRef_v2"
+    ET.register_namespace('pref', pref_namespace)
+    ET.register_namespace('wb', wb_namespace)
     ET.register_namespace('ce', ce_namespace)
 
     waybill = ET.SubElement(doc.document, "ns:WayBill_v4")
@@ -126,25 +176,25 @@ def create_waybill_v4(fsrar_id, number, identity, date, note, positions):
     ET.SubElement(header, "wb:ShippingDate").text = date
     ET.SubElement(header, "wb:Type").text = "WBInvoiceFromMe"
     ET.SubElement(header, "wb:Note").text = note
-    ET.SubElement(header, "wb:Base").text = "основание"
-    shipper = ET.SubElement(header, "wb:Shipper")
-    consignee = ET.SubElement(header, "wb:Consignee")
-    transport = ET.SubElement(header, "wb:Transport")
+    ET.SubElement(header, "wb:Base").text = base
+    add_shipper(header, shipper)
+    add_consignee(header, consignee)
+    add_transport(header, transport)
     content = ET.SubElement(waybill, "wb:Content")
     i = 1
     for pos in positions:
-        position = ET.SubElement(content, "wa:Position")
-        ET.SubElement(content, "wb:Identity").text = str(i)
-        ET.SubElement(content, "wb:Quantity").text = str(pos['quantity'])
-        ET.SubElement(content, "wb:Price").text = str(pos['price'])
-        ET.SubElement(content, "wb:Pack_ID").text = pos['pack_id']
-        ET.SubElement(content, "wb:Party").text = pos['party']
-        ET.SubElement(content, "wb:FARegId").text = pos['FARegId']
+        position = ET.SubElement(content, "wb:Position")
+        ET.SubElement(position, "wb:Identity").text = str(i)
+        ET.SubElement(position, "wb:Quantity").text = str(pos['quantity'])
+        ET.SubElement(position, "wb:Price").text = str(pos['price'])
+        #ET.SubElement(position, "wb:Pack_ID").text = pos['pack_id']
+        #ET.SubElement(position, "wb:Party").text = pos['party']
+        ET.SubElement(position, "wb:FARegId").text = pos['FARegId']
         inform_f2 = ET.SubElement(position, "wb:InformF2")
-        ET.SubElement(inform_f2, "ce:F2RegId").text = pos["F2RegId"]
+        ET.SubElement(inform_f2, "{%s}F2RegId" % ce_namespace).text = pos["F2RegId"]
 
         i += 1
-        product = ET.SubElement(position, "wa:Product")
+        product = ET.SubElement(position, "wb:Product")
     tree = ET.ElementTree(doc.documents)
     return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
 
@@ -473,14 +523,18 @@ def write_off_v3(utm_url, fsrar_id, positions, act_number):
     return send_query(xml_str, utm_url, "ActWriteOff_v3")
 
 
-def waybill_v4(utm_url, fsrar_id, positions, number):
+def waybill_v4(utm_url, fsrar_id, shipper, consignee, transport, positions, number, base):
     global handmade
     xml_str = create_waybill_v4(fsrar_id,
                                 number,
                                 "1",
                                 datetime.datetime.now().strftime("%Y-%m-%d"),
                                 handmade,
+                                shipper,
+                                consignee,
+                                transport,
                                 positions,
+                                base,
                                )
     # fsrar_id, number, identity, date, note, positions
     # fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None, rejected=False
