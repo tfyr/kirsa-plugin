@@ -67,20 +67,17 @@ class TestWriteOffShop2(unittest.TestCase):
 
 
 class TestWriteOff3(unittest.TestCase):
-    def __test_write_off_v3(self,):
+    def test_write_off_v3(self,):
         positions = [
-            {
-                'quantity': 2,
-                'F2RegId': 'FB-000006385720362',
-                'marks': ['187417658630031222001ZTVYMWSS7LG3TFN3AQ5YW7VMHMETWDBL7GSWLLEOIJ47RFT7ZGCWUSOMGYFEMDCKWNOIOF52LIBFEIEUPQ23XVTRIGO5NJP4ZELZJK3EUHSJXMUAFS2CQNUXGV6O4PO3Q',
-                          '187417658627461222001S2OCX35T2T2L4VBJGLQOJEBT7IE56AOYNKWCLWBTBA2NMRDAOSVN7C54DNHSRGC23FAWXWXB3H75HYHGZ2GKY3BD37HA23LGOZPOOFSQKOP4HQHLKCZQIMOSJ6DMMHT7A']
-            }
+            {'quantity': 1, 'F2RegId': 'FB-000006339798781', 'marks': ['198411195414010223001ZCNGTCYQGSB4II5YGJE2FHNKQMTZWQYMM5CSEMEAFYZU5J4BVL5QAE74MOBAATLAJE47GFMNSUDE7EM537SH4EWDS4XUXKNARWZKBUKLOE6P7SDP2RBMEVHP2NSJ7PFCY']},
+            {'quantity': 1, 'F2RegId': 'FB-000006455268860', 'marks': ['198409117165661222001EQJQM66HKPUZWMMMI7FUTI2QVMEA3JKITIYBLCULDVOMJ7AEWKA5V4QL7FJKRTIBKCTVRVFPTLWIXRGAHKW2VPHMDMQZVZZYLVGQARCCE44JTN2T4HSZAWDTNIQPDGLMQ']},
+            # {'quantity': 1, 'F2RegId': '', 'marks': ['']},
         ]
-        write_off_v3('http://tasht:8080', '030000555605', positions, "18")
+        write_off_v3('http://askar:8080', '030000412439', positions, "2")
 
 
 class TestWaybill4(unittest.TestCase):
-    def test_waybill_v4(self,):
+    def __test_waybill_v4(self,):
         positions = [
             {
                 'quantity': 240,
