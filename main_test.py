@@ -2,7 +2,7 @@ import unittest
 
 import requests
 
-from egais import get_actions, act4, write_off_shop_v2, write_off_v3, waybill_v4
+from egais import get_actions, act4, write_off_shop_v2, write_off_v3, waybill_v4, get_fsrar_id
 
 ooo_dionis = {
             'ClientRegId': '030000687073',
@@ -68,12 +68,15 @@ class TestWriteOffShop2(unittest.TestCase):
 
 class TestWriteOff3(unittest.TestCase):
     def test_write_off_v3(self,):
+        utm_url = 'http://oct2:8080'
+        fsrar_id = get_fsrar_id(utm_url)
         positions = [
-            {'quantity': 1, 'F2RegId': 'FB-000006339798781', 'marks': ['198411195414010223001ZCNGTCYQGSB4II5YGJE2FHNKQMTZWQYMM5CSEMEAFYZU5J4BVL5QAE74MOBAATLAJE47GFMNSUDE7EM537SH4EWDS4XUXKNARWZKBUKLOE6P7SDP2RBMEVHP2NSJ7PFCY']},
-            {'quantity': 1, 'F2RegId': 'FB-000006455268860', 'marks': ['198409117165661222001EQJQM66HKPUZWMMMI7FUTI2QVMEA3JKITIYBLCULDVOMJ7AEWKA5V4QL7FJKRTIBKCTVRVFPTLWIXRGAHKW2VPHMDMQZVZZYLVGQARCCE44JTN2T4HSZAWDTNIQPDGLMQ']},
+            {'quantity': 1, 'F2RegId': 'FB-000004727570128', 'marks': ['195300812040111120001KVU3U2TFREGVNZHXQPTXWON63UIYJFIZUOYXH45HDQ7DWB7KBTF5BGKUE3D4DZQ6SFBYYJ6EL5LBBND3RJD3KGQTA52FP2AJD63CIKNJ3TE5E6XYSA3NPXHFUDJQ24QUA']},
+            {'quantity': 1, 'F2RegId': 'FB-000006591634712', 'marks': ['197405643938091222001JL6TGLUSEK7HUUNIROF7M4G2EY3IFRBI2HBU524T4AHJFQH2XGTFI4FZYVKAMDULCYCQA2G4GN4PGYKH7OV4OL3BDBV33X5RDE2ESDVQAZIX6HX2N7TMYPNBQTHNKGQSY']},
+            {'quantity': 1, 'F2RegId': 'FB-000006591634722', 'marks': ['187319692723690623001GSMPCEPHFZV3DJSYJW3LYKLCAU6Z5J23HNXCEEVOX7UNENIYWPAYA4ZUJGMNL7SLG33PKTB22T4PY2L2NBEG6HVV255NJ3LF6AFPYFNJK3JHZIB3XXFUE43A42HFAMYPA']},
             # {'quantity': 1, 'F2RegId': '', 'marks': ['']},
         ]
-        write_off_v3('http://askar:8080', '030000412439', positions, "2")
+        write_off_v3(utm_url, fsrar_id, positions, "2")
 
 
 class TestWaybill4(unittest.TestCase):
