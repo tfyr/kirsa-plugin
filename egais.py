@@ -475,11 +475,11 @@ def act3(utm_url, fsrar_id, ttn):
 def act4(utm_url, fsrar_id, ttn, reject=False):
     global handmade
     missed_amc = None
-    # missed_amc = list()
-    # missed_amc.append({'identity': 146485104, 'inform_f2_reg_id': 'FB-000005796838897', 'real_quantity': 0,})
-
+    missed_amc = list()
+    missed_amc.append({'identity': '1', 'inform_f2_reg_id': 'FB-000006573519268', 'real_quantity': 899,})
+    missed_amc.append({'identity': '2', 'inform_f2_reg_id': 'FB-000006573519269', 'real_quantity': 828,})
     xml_str = create_waybill_act_v4(fsrar_id,
-                                   "000017",
+                                   "000018",
                                     datetime.datetime.now().strftime("%Y-%m-%d"),
                                     ttn,
                                     handmade,

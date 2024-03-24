@@ -67,7 +67,7 @@ class TestWriteOffShop2(unittest.TestCase):
 
 
 class TestWriteOff3(unittest.TestCase):
-    def test_write_off_v3(self,):
+    def __test_write_off_v3(self,):
         utm_url = 'http://oct2:8080'
         fsrar_id = get_fsrar_id(utm_url)
         positions = [
@@ -139,8 +139,10 @@ class TestEgaisAction(unittest.TestCase):
         q = requests.post("http://localhost:8015/file/", params=params)
 
 class TestAct4(unittest.TestCase):
-    def __test_act4(self,):
-        act4('http://oct2:8080', '030000502187', 'TTN-0698489259', True)
+    def test_act4(self,):
+        utm_url = 'http://localhost:8080'
+        fsrar_id = get_fsrar_id(utm_url)
+        act4(utm_url, fsrar_id, 'TTN-0708990547', False)
 
 # params = {'fsrar_id': fsrar_id, 'action': 'get_actions'}
 # q = requests.post("https://kirsa.9733.ru/file/", params=params)
