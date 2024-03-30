@@ -4,6 +4,7 @@ import xml
 import xml.dom.minidom
 import xml.etree.ElementTree as ET
 import requests
+from lxml import etree
 
 ns_namespace = "http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01"
 handmade = "Создано вручную, с любовью и вниманием к деталям."
@@ -126,14 +127,29 @@ def add_shipper(header, shipper):
     ET.SubElement(address, "oref:description").text = shipper['address']['description']
 
 
-def add_consignee(header, consignee):
+def add_consignee_ul(header, consignee):
+    oref_namespace = "http://fsrar.ru/WEGAIS/ClientRef_v2"
+    ET.register_namespace("oref", oref_namespace)
+    c = ET.SubElement(header, "wb:Consignee")
+    ul = ET.SubElement(c, "{%s}UL" % oref_namespace)
+    ET.SubElement(ul, "oref:ClientRegId").text = consignee['ClientRegId']
+    ET.SubElement(ul, "oref:INN").text = consignee['INN']
+    ET.SubElement(ul, "oref:KPP").text = consignee['KPP']
+    ET.SubElement(ul, "oref:FullName").text = consignee['FullName']
+    ET.SubElement(ul, "oref:ShortName").text = consignee['ShortName']
+    address = ET.SubElement(ul, "oref:address")
+    ET.SubElement(address, "oref:Country").text = consignee['address']['Country']
+    ET.SubElement(address, "oref:RegionCode").text = consignee['address']['RegionCode']
+    ET.SubElement(address, "oref:description").text = consignee['address']['description']
+
+
+def add_consignee_fl(header, consignee):
     oref_namespace = "http://fsrar.ru/WEGAIS/ClientRef_v2"
     ET.register_namespace("oref", oref_namespace)
     c = ET.SubElement(header, "wb:Consignee")
     ul = ET.SubElement(c, "{%s}FL" % oref_namespace)
     ET.SubElement(ul, "oref:ClientRegId").text = consignee['ClientRegId']
     ET.SubElement(ul, "oref:INN").text = consignee['INN']
-    #ET.SubElement(ul, "oref:KPP").text = consignee['KPP']
     ET.SubElement(ul, "oref:FullName").text = consignee['FullName']
     ET.SubElement(ul, "oref:ShortName").text = consignee['ShortName']
     address = ET.SubElement(ul, "oref:address")
@@ -178,7 +194,7 @@ def create_waybill_v4(fsrar_id, number, identity, date, note, shipper, consignee
     ET.SubElement(header, "wb:Note").text = note
     ET.SubElement(header, "wb:Base").text = base
     add_shipper(header, shipper)
-    add_consignee(header, consignee)
+    add_consignee_ul(header, consignee)
     add_transport(header, transport)
     content = ET.SubElement(waybill, "wb:Content")
     i = 1
@@ -195,8 +211,21 @@ def create_waybill_v4(fsrar_id, number, identity, date, note, shipper, consignee
 
         i += 1
         product = ET.SubElement(position, "wb:Product")
+        ET.SubElement(product, "pref:AlcCode").text = pos['AlcCode']
+        ET.SubElement(product, "pref:Capacity").text = pos['Capacity']
+        ET.SubElement(product, "pref:AlcVolume").text = pos['AlcVolume']
+        # ET.SubElement(product, "pref:Producer").text = pos['Producer']
+        ET.SubElement(product, "pref:ProductVCode").text = pos['ProductVCode']
+
     tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+
+    xml_str = ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, )
+    xml_doc = etree.fromstring(xml_str)
+    xmlschema_doc = etree.parse("./xsd/TTNSingle_v4.xsd") # "./xsd/WB_DOC_SINGLE_01.xsd")
+    xmlschema = etree.XMLSchema(xmlschema_doc)
+    if not xmlschema.validate(xml_doc):
+        raise Exception("not valid xml")
+    return xml_str.decode("utf-8")
 
 
 def create_act_write_off_v3(fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None):
@@ -539,7 +568,8 @@ def waybill_v4(utm_url, fsrar_id, shipper, consignee, transport, positions, numb
     # fsrar_id, number, identity, date, note, positions
     # fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None, rejected=False
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
-    # return send_query(xml_str, utm_url, "ActWriteOff_v3")
+
+    #return send_query(xml_str, utm_url, "ActWriteOff_v3")
 
 def query_rests_v2(utm_url, fsrar_id,):
     global handmade

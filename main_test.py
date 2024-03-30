@@ -17,6 +17,19 @@ ooo_dionis = {
             }
         }
 
+ooo_dionis_smelovsk = {
+            'ClientRegId': '030000834218',
+            'INN': '0201014099',
+            'KPP': '745645003',
+            'FullName': 'Общество с ограниченной ответственностью "Дионис"',
+            'ShortName': 'ООО "Дионис"',
+            'address': {
+                'Country': '643',
+                'RegionCode': '74',
+                'description': 'Россия, Челябинская Область, Верхнеуральский Район, , Смеловский Поселок, Первомайский Переулок, 8А,, '
+            },
+        }
+
 class TestSum(unittest.TestCase):
     def __test_send_waybill(self, ):
         files = dict()
@@ -68,52 +81,38 @@ class TestWriteOffShop2(unittest.TestCase):
 
 class TestWriteOff3(unittest.TestCase):
     def __test_write_off_v3(self,):
-        utm_url = 'http://oct2:8080'
+        utm_url = 'http://tupak48:8080'
         fsrar_id = get_fsrar_id(utm_url)
         positions = [
-            {'quantity': 2, 'F2RegId': 'FB-000005652119254', 'marks': ['187312666976510622001UIIDNALHVCD6XNJ5X34TFBMPYYEN7RLAD7N24Q62PWUPED66VEYEJPUATULFEGMIJRQTW4TE2KSCWZLIIP4TRRQYTLCT64Z4EREVF3YUJVDS7PW7EOBUPSAQ5S6TPBZEQ',
-                                                                       '187312666976430622001P4B6ZEQQEKE63XDPGY3ABT5TUQCA5MT6CCOVC6DLNVB6VO45LGBOIW3TDC5NGDYDPZHRTXTFBN6VEOPHRFQSYZY3SQO7RNFCX5KZEOPAA5JRLKONSCJVFG7DGFN3VB4QA',
-                                                                       ]},
+            {'quantity': 2, 'F2RegId': 'FB-000003679121459', 'marks': ['177400451244141018001CRVEMPFAI6UUPWCTXHVETPWSEU3LGOUYBLN33RX7BKTEDMJZHKHJC5LP4A7LBD2VCHPXPTAVLHWREQEOTND4RSZJZMV6CMAY6WPMKF3KK5Y5HFY3L2FZAWY6GN7DKVRBA','177400451244171018001YEPLFSA5IXUV6CELI22FY5YMDIC5HBYAOTG3QNICZLASN7XNMYYW6FE4MZIFY5E4Z7BXPUPH4WIG6LVXOE2P235TPI2P2VGKXRMNIV363FIXBHTYPONZG3Q3DSOCACIYA']},
+            {'quantity': 4, 'F2RegId': 'FB-000003679121458', 'marks': [
+                '177400451594241018001S7TWAZ5FABVN3IHY3F5K5E5G6APBSK3HPFWWIEPZDWK5ZOWG7I5VKBKE7TQQE3FVCSZSA2A6HKPVRPWZJTIRX67GX4DGHPGTX6PB7ZTREPBDEMVFRVWSYKMJWLJUIGPEQ',
+                '177400451594191018001XNQMCKAQGWFIRPBD24IGPYGWIYJJD7GLLFPQF4TZ4CHDT6OZVUMEAKEWCO2V4NHRTEPVYSGXAPIO23PL2NRWZJVHK4HT3SRQNZU7XC7QTIBAXHB6VPL67PA5QEMFAIQMQ',
+                '177400451594221018001FD45RP23IJAP7YWZSBDHCMO54YQJHHW3BXWZMUOM3L3CA42EIW7SBJEFGKUNCFSDVCPM4KMMUY7HAGBKTKEOHHXTV7GL4MUCVWHYTIPYUF5Q2DRE7LDLF26N75TIY3IWI',
+                '177400451594401018001CWJST3Y636HNDEQJEHC5Y6OZVQA742QUF6VOU34SJB7LUKUJJ4BIY5JED675UAJAE4OEMJRKTPQ4TNIXMJ3YDUOFVR3FOUP2YZTYE46Y4A6W24OZNFU6WOZFAR35BMOFQ']},
             # {'quantity': 1, 'F2RegId': '', 'marks': ['']},
         ]
-        write_off_v3(utm_url, fsrar_id, positions, "4")
+        write_off_v3(utm_url, fsrar_id, positions, "5")
 
 
 class TestWaybill4(unittest.TestCase):
-    def __test_waybill_v4(self,):
+    def test_waybill_v4(self,):
         positions = [
             {
-                'quantity': 240,
-                'price': 53.50,
-                'FARegId': 'FA-000000049132760',
-                'F2RegId': 'FB-000005018983051',
-            },
-            {
-                'quantity': 120,
-                'price': 53.00,
-                'FARegId': 'FA-000000052088878',
-                'F2RegId': 'FB-000006359834334',
-            },
-            {
-                'quantity': 120,
-                'price': 53.50,
-                'FARegId': 'FA-000000052220381',
-                'F2RegId': 'FB-000006493875295',
+                'quantity': 2,
+                'price': 790.00,
+                'FARegId': 'FA-000000043893816',
+                'F2RegId': 'FB-000003552832754',
+                'AlcCode': '0116116000002544848',
+                'Capacity': '0.5000',
+                'AlcVolume': '40.000',
+                'ProductVCode': '237',
+                #'Producer': ''
+                # <pref:Producer><oref:UL xmlns:pref="http://fsrar.ru/WEGAIS/ProductRef_v2" xmlns:oref="http://fsrar.ru/WEGAIS/ClientRef_v2" xmlns:rst="http://fsrar.ru/WEGAIS/ReplyRests_v2" xmlns:ns="http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><oref:ClientRegId>010000000539</oref:ClientRegId><oref:INN>1681000049</oref:INN><oref:KPP>165902005</oref:KPP><oref:FullName>Акционерное общество "Татспиртпром"</oref:FullName><oref:ShortName>АО филиал АО "Татспиртпром" "Vigrosso"</oref:ShortName><oref:address><oref:Country>643</oref:Country><oref:RegionCode>16</oref:RegionCode><oref:description>РОССИЯ,,ТАТАРСТАН РЕСП,,Казань г,,Учительская ул,5,,</oref:description></oref:address></oref:UL></pref:Producer>
             },
         ]
         shipper = ooo_dionis
-        consignee = {
-            'ClientRegId': '030000729849',
-            'INN': '742801598687',
-            'KPP': '',
-            'FullName': 'ИП Аюпова Ирина Николаевна',
-            'ShortName': 'ИП Аюпова Ирина Николаевна',
-            'address': {
-                'Country': '643',
-                'RegionCode': '74',
-                'description': 'Россия, 455000, Челябинская обл, г. Магнитогорск, ул. Ворошилова, д. 9а'
-            },
-        }
+        consignee = ooo_dionis_smelovsk
 
         transport = {
             'TRAN_TYPE': 'Автомобиль',
@@ -122,12 +121,14 @@ class TestWaybill4(unittest.TestCase):
             'TRANSPORT_REGNUMBER': 'Лада Ларгус, е885ху174',
             'TRAN_CUSTOMER': 'ООО "Дионис"',
             'TRAN_DRIVER': 'Палагутин И.В.',
-            'TRAN_LOADPOINT': '643,455000,74,,МАГНИТОГОРСК Г,,АВТОМОБИЛИСТОВ УЛ,8Г,,',
-            'TRAN_UNLOADPOINT': 'Россия, 455000, Магнитогорск, ул. Ворошилова 9а',
+            'TRAN_LOADPOINT': 'Башкортостан Республика, Абзелиловский Район, , Ташбулатово Село, Центральная Улица, 17,',
+            'TRAN_UNLOADPOINT': 'Россия, Челябинская Область, Верхнеуральский Район, , Смеловский Поселок, Первомайский Переулок, ,, ',
             'TRAN_FORWARDER': 'Палагутин И.В.',
         }
 
-        waybill_v4('http://localhost:8080', '030000687073', shipper, consignee, transport, positions, "18", 'Договор №101 от 05.01.2024')
+        utm_url = 'http://localhost:8080'
+        fsrar_id = get_fsrar_id(utm_url)
+        waybill_v4(utm_url, fsrar_id, shipper, consignee, transport, positions, "19", 'Перемещение')
 
 
 class TestEgaisAction(unittest.TestCase):
@@ -139,7 +140,7 @@ class TestEgaisAction(unittest.TestCase):
         q = requests.post("http://localhost:8015/file/", params=params)
 
 class TestAct4(unittest.TestCase):
-    def test_act4(self,):
+    def __test_act4(self,):
         utm_url = 'http://localhost:8080'
         fsrar_id = get_fsrar_id(utm_url)
         act4(utm_url, fsrar_id, 'TTN-0708990547', False)
