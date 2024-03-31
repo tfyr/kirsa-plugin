@@ -17,6 +17,19 @@ ooo_dionis = {
             }
         }
 
+ooo_dionis_tashb = {
+            'ClientRegId': '030000543922',
+            'INN': '0201014099',
+            'KPP': '020145006',
+            'FullName': 'Общество с ограниченной ответственностью "Дионис"',
+            'ShortName': 'ООО "Дионис"',
+            'address': {
+                'Country': '643',
+                'RegionCode': '02',
+                'description': 'Башкортостан Республика, Абзелиловский Район, , Ташбулатово Село, Центральная Улица, 17,,'
+            }
+        }
+
 ooo_dionis_smelovsk = {
             'ClientRegId': '030000834218',
             'INN': '0201014099',
@@ -107,11 +120,26 @@ class TestWaybill4(unittest.TestCase):
                 'Capacity': '0.5000',
                 'AlcVolume': '40.000',
                 'ProductVCode': '237',
-                #'Producer': ''
-                # <pref:Producer><oref:UL xmlns:pref="http://fsrar.ru/WEGAIS/ProductRef_v2" xmlns:oref="http://fsrar.ru/WEGAIS/ClientRef_v2" xmlns:rst="http://fsrar.ru/WEGAIS/ReplyRests_v2" xmlns:ns="http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><oref:ClientRegId>010000000539</oref:ClientRegId><oref:INN>1681000049</oref:INN><oref:KPP>165902005</oref:KPP><oref:FullName>Акционерное общество "Татспиртпром"</oref:FullName><oref:ShortName>АО филиал АО "Татспиртпром" "Vigrosso"</oref:ShortName><oref:address><oref:Country>643</oref:Country><oref:RegionCode>16</oref:RegionCode><oref:description>РОССИЯ,,ТАТАРСТАН РЕСП,,Казань г,,Учительская ул,5,,</oref:description></oref:address></oref:UL></pref:Producer>
+                'FullName': 'Купажированный виски "GLEN RIVERS"',
+                'ShortName': 'Купажированный виски "GLEN RIVERS"',
+                'Producer': {
+                    'UL': {
+                        'ClientRegId': '010000000539',
+                        'INN': '1681000049',
+                        'INN': '1681000049',
+                        'KPP': '165902005',
+                        'FullName': 'Акционерное общество "Татспиртпром"',
+                        'ShortName': 'АО филиал АО "Татспиртпром" "Vigrosso"',
+                        'address': {
+                            'Country': '643',
+                            'RegionCode': '16',
+                            'description': 'РОССИЯ,,ТАТАРСТАН РЕСП,,Казань г,,Учительская ул,5,,',
+                        },
+                    }
+                }
             },
         ]
-        shipper = ooo_dionis
+        shipper = ooo_dionis_tashb
         consignee = ooo_dionis_smelovsk
 
         transport = {
@@ -121,12 +149,12 @@ class TestWaybill4(unittest.TestCase):
             'TRANSPORT_REGNUMBER': 'Лада Ларгус, е885ху174',
             'TRAN_CUSTOMER': 'ООО "Дионис"',
             'TRAN_DRIVER': 'Палагутин И.В.',
-            'TRAN_LOADPOINT': 'Башкортостан Республика, Абзелиловский Район, , Ташбулатово Село, Центральная Улица, 17,',
+            'TRAN_LOADPOINT': 'Башкортостан Республика, Абзелиловский Район, , Ташбулатово Село, Центральная Улица, 17,,',
             'TRAN_UNLOADPOINT': 'Россия, Челябинская Область, Верхнеуральский Район, , Смеловский Поселок, Первомайский Переулок, ,, ',
             'TRAN_FORWARDER': 'Палагутин И.В.',
         }
 
-        utm_url = 'http://localhost:8080'
+        utm_url = 'http://10.252.1.5:8080'
         fsrar_id = get_fsrar_id(utm_url)
         waybill_v4(utm_url, fsrar_id, shipper, consignee, transport, positions, "19", 'Перемещение')
 
