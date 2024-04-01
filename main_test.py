@@ -25,8 +25,8 @@ ooo_dionis_tashb = {
             'ShortName': 'ООО "Дионис"',
             'address': {
                 'Country': '643',
-                'RegionCode': '02',
-                'description': 'Башкортостан Республика, Абзелиловский Район, , Ташбулатово Село, Центральная Улица, 17,,'
+                'RegionCode': '74',
+                'description': 'Россия, 455000, Челябинская обл, г. Магнитогорск, ул. Автомобилистов, д. 8г'
             }
         }
 
@@ -122,6 +122,10 @@ class TestWaybill4(unittest.TestCase):
                 'ProductVCode': '237',
                 'FullName': 'Купажированный виски "GLEN RIVERS"',
                 'ShortName': 'Купажированный виски "GLEN RIVERS"',
+                'marks': [
+                    '103400566296331018001LSHQAPAIIJ7JTBRDJBHNCTPLQI3GBWDBKOXO6YRSZMTSKCTWH4QVGJS5XQ6V3I7VEK73L3WXPCJT5RVDFAERVPPV63665E5QAK5BTT7Q6E4F3DUTCIC7GMKGUDBYZ6H6I',
+                    '103400566296481018001NE7FFWLD7MML7QCVOYBG5KAQPI5M6ADV6TVK7SZ2WLX7RFFJH3LVH5VDN4XSYF5MD5BYFRBAHJ2OVL7SZUKEFGH3RZCDGYUUYHXEO7EVH53KR3N4KA5XP7MWCD3QGTY3A',
+                ],
                 'Producer': {
                     'UL': {
                         'ClientRegId': '010000000539',

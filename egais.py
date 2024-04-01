@@ -224,6 +224,11 @@ def create_waybill_v4(fsrar_id, number, identity, date, note, shipper, consignee
         ET.SubElement(position, "wb:FARegId").text = pos['FARegId']
         inform_f2 = ET.SubElement(position, "wb:InformF2")
         ET.SubElement(inform_f2, "{%s}F2RegId" % ce_namespace).text = pos["F2RegId"]
+        mark_info = ET.SubElement(inform_f2, "ce:MarkInfo")
+        boxpos = ET.SubElement(mark_info, "ce:boxpos")
+        amclist = ET.SubElement(boxpos, "ce:amclist")
+        for m in pos['marks']:
+            ET.SubElement(amclist, "ce:amc").text = m
 
         i += 1
         product = ET.SubElement(position, "wb:Product")
