@@ -130,7 +130,6 @@ class TestWaybill4(unittest.TestCase):
                     'UL': {
                         'ClientRegId': '010000000539',
                         'INN': '1681000049',
-                        'INN': '1681000049',
                         'KPP': '165902005',
                         'FullName': 'Акционерное общество "Татспиртпром"',
                         'ShortName': 'АО филиал АО "Татспиртпром" "Vigrosso"',
@@ -160,7 +159,7 @@ class TestWaybill4(unittest.TestCase):
 
         utm_url = 'http://10.252.1.5:8080'
         fsrar_id = get_fsrar_id(utm_url)
-        waybill_v4(utm_url, fsrar_id, shipper, consignee, transport, positions, "19", 'Перемещение')
+        waybill_v4(utm_url, fsrar_id, shipper, consignee, transport, positions, "20", 'Перемещение')
 
 
 class TestEgaisAction(unittest.TestCase):

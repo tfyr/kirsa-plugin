@@ -702,20 +702,35 @@ def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://loc
     assert q.status_code == 200
     data = json.loads(q.text)
     for x in data:
-        if x['action'] == 'act4':
+        action = x['action']
+        if action == 'act4':
             q = act4(utm_url, fsrar_id, x['wbreg_id'])
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
-            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id, 'sign': sign}
+            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id,
+                      'sign': sign}
             q = requests.post(url, params=params)
             print(x)
             print(q.text)
-        elif x['action'] == 'nattn':
+        elif action == 'nattn':
             q = nattn(utm_url, fsrar_id)
+            assert q.status_code == 200
+            transport_id, sign, = parse_simple_response(q.text)
+            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id,
+                      'sign': sign}
+            q = requests.post(url, params=params)
+            print(x)
+            print(q.text)
+        elif action == 'wb4':
+            params = json.loads(x['params'])
+            q = waybill_v4(utm_url, fsrar_id, params['shipper'], params['consignee'], params['transport'],
+                           params['positions'], params['number'], params['base'])
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
             params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id, 'sign': sign}
             q = requests.post(url, params=params)
             print(x)
             print(q.text)
+        else:
+            raise Exception("unknown action")
 
