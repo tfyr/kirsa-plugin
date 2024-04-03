@@ -178,16 +178,27 @@ def add_transport(header, transport):
 
 def add_producer(product, data):
     producer = ET.SubElement(product, "pref:Producer")  # pos['Producer']
-    ul = ET.SubElement(producer, "oref:UL")
-    ET.SubElement(ul, "oref:ClientRegId").text = data['UL']['ClientRegId']
-    ET.SubElement(ul, "oref:INN").text = data['UL']['INN']
-    ET.SubElement(ul, "oref:KPP").text = data['UL']['KPP']
-    ET.SubElement(ul, "oref:FullName").text = data['UL']['FullName']
-    ET.SubElement(ul, "oref:ShortName").text = data['UL']['ShortName']
-    address = ET.SubElement(ul, "oref:address")
-    ET.SubElement(address, "oref:Country").text = data['UL']['address']['Country']
-    ET.SubElement(address, "oref:RegionCode").text = data['UL']['address']['RegionCode']
-    ET.SubElement(address, "oref:description").text = data['UL']['address']['description']
+    if 'UL' in data:
+        xl = ET.SubElement(producer, "oref:UL")
+        data_xl = data['UL']
+        ET.SubElement(xl, "oref:INN").text = data_xl['INN']
+        ET.SubElement(xl, "oref:KPP").text = data_xl['KPP']
+    elif 'FO' in data:
+        xl = ET.SubElement(producer, "oref:FO")
+        data_xl = data['FO']
+    elif 'TS' in data:
+        xl = ET.SubElement(producer, "oref:TS")
+        data_xl = data['TS']
+    else:
+        raise Exception("unknown producer type")
+    ET.SubElement(xl, "oref:ClientRegId").text = data_xl['ClientRegId']
+    ET.SubElement(xl, "oref:FullName").text = data_xl['FullName']
+    ET.SubElement(xl, "oref:ShortName").text = data_xl['ShortName']
+    address = ET.SubElement(xl, "oref:address")
+    ET.SubElement(address, "oref:Country").text = data_xl['address']['Country']
+    if 'UL' in data:
+        ET.SubElement(address, "oref:RegionCode").text = data_xl['address']['RegionCode']
+    ET.SubElement(address, "oref:description").text = data_xl['address']['description']
 
 
 def create_waybill_v4(fsrar_id, number, identity, date, note, shipper, consignee, transport, positions, base):
