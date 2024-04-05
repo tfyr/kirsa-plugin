@@ -734,6 +734,7 @@ def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://loc
             print(q.text)
         elif action == 'writeoff_v3':
             params = json.loads(x['params'])
+            print(params)
             q = write_off_v3(utm_url, fsrar_id, params['positions'], params['number'])
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
