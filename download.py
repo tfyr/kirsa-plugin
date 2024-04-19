@@ -11,9 +11,11 @@ from egais import get_fsrar_id, get_actions
 parser = argparse.ArgumentParser()
 parser.add_argument('--utm-url', help='utm_url')
 parser.add_argument('--sklad-id', help='sklad-id')
+parser.add_argument('--less-or-equal-id', help='less_or_equal_id')
 args = parser.parse_args()
 
 fsrar_id = get_fsrar_id(args.utm_url)
+less_or_equal_id = args.less_or_equal_id
 
 fname = './last_id.txt'
 try:
@@ -31,6 +33,10 @@ root = ET.fromstring(q.text)
 files = dict()
 i = 0
 new_last_id = last_id
+
+if args.less_or_equal_id:
+    less_or_equal_id = int(args.less_or_equal_id)
+
 for url in root.findall('url'):
     m = re.match(r"http:\/\/.*\/opt\/out\/(.*)\/(\d+)", url.text)
     if m:
@@ -40,6 +46,8 @@ for url in root.findall('url'):
             print("skip, id:", id)
             continue
         new_last_id = id
+        if less_or_equal_id and id > less_or_equal_id:
+            break
 
     print(id, url.text)
     q = requests.get(url.text)
