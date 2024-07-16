@@ -1,8 +1,9 @@
 import unittest
+from time import sleep
 
 import requests
 
-from egais import get_actions, act4, write_off_shop_v2, write_off_v3, waybill_v4, get_fsrar_id
+from egais import get_actions, act4, write_off_shop_v2, write_off_v3, waybill_v4, get_fsrar_id, query_bcode
 
 ooo_dionis = {
             'ClientRegId': '030000687073',
@@ -68,37 +69,40 @@ class TestWriteOffShop2(unittest.TestCase):
 
 class TestWriteOff3(unittest.TestCase):
     def __test_write_off_v3(self,):
-        utm_url = 'http://oct2:8080'
+        utm_url = 'http://localhost:8088'
         fsrar_id = get_fsrar_id(utm_url)
         positions = [
-            {'quantity': 2, 'F2RegId': 'FB-000005652119254', 'marks': ['187312666976510622001UIIDNALHVCD6XNJ5X34TFBMPYYEN7RLAD7N24Q62PWUPED66VEYEJPUATULFEGMIJRQTW4TE2KSCWZLIIP4TRRQYTLCT64Z4EREVF3YUJVDS7PW7EOBUPSAQ5S6TPBZEQ',
-                                                                       '187312666976430622001P4B6ZEQQEKE63XDPGY3ABT5TUQCA5MT6CCOVC6DLNVB6VO45LGBOIW3TDC5NGDYDPZHRTXTFBN6VEOPHRFQSYZY3SQO7RNFCX5KZEOPAA5JRLKONSCJVFG7DGFN3VB4QA',
-                                                                       ]},
+            {'quantity': 51,
+             'F2RegId': 'FB-000006638627341',
+             'marks': [
+                    '',
+                ]
+             },
             # {'quantity': 1, 'F2RegId': '', 'marks': ['']},
         ]
-        write_off_v3(utm_url, fsrar_id, positions, "4")
+        write_off_v3(utm_url, fsrar_id, positions, "12")
 
 
 class TestWaybill4(unittest.TestCase):
-    def __test_waybill_v4(self,):
+    def test_waybill_v4(self,):
         positions = [
             {
-                'quantity': 240,
-                'price': 53.50,
-                'FARegId': 'FA-000000049132760',
-                'F2RegId': 'FB-000005018983051',
+                'quantity': 400,
+                'price': 59.97,
+                'FARegId': 'FA-000000051998220',
+                'F2RegId': 'FB-000006415398437',
             },
             {
-                'quantity': 120,
-                'price': 53.00,
-                'FARegId': 'FA-000000052088878',
-                'F2RegId': 'FB-000006359834334',
+                'quantity': 300,
+                'price': 48.68,
+                'FARegId': 'FA-000000053670746',
+                'F2RegId': 'FB-000006913953311',
             },
             {
-                'quantity': 120,
-                'price': 53.50,
-                'FARegId': 'FA-000000052220381',
-                'F2RegId': 'FB-000006493875295',
+                'quantity': 100,
+                'price': 54.79,
+                'FARegId': 'FA-000000048999216',
+                'F2RegId': 'FB-000005018983044',
             },
         ]
         shipper = ooo_dionis
@@ -127,7 +131,7 @@ class TestWaybill4(unittest.TestCase):
             'TRAN_FORWARDER': 'Палагутин И.В.',
         }
 
-        waybill_v4('http://localhost:8080', '030000687073', shipper, consignee, transport, positions, "18", 'Договор №101 от 05.01.2024')
+        waybill_v4('http://localhost:8088', '030000687073', shipper, consignee, transport, positions, "19", 'Договор №102 от 16.07.2024')
 
 
 class TestEgaisAction(unittest.TestCase):
@@ -139,14 +143,158 @@ class TestEgaisAction(unittest.TestCase):
         q = requests.post("http://localhost:8015/file/", params=params)
 
 class TestAct4(unittest.TestCase):
-    def test_act4(self,):
-        utm_url = 'http://localhost:8080'
+    def __test_act4(self,):
+        utm_url = 'http://rainbow:8080'
         fsrar_id = get_fsrar_id(utm_url)
-        act4(utm_url, fsrar_id, 'TTN-0708990547', False)
+        act4(utm_url, fsrar_id, 'TTN-0725910955', False)
 
 # params = {'fsrar_id': fsrar_id, 'action': 'get_actions'}
 # q = requests.post("https://kirsa.9733.ru/file/", params=params)
 # assert q.status_code == 200
 
+class TestQueryBCode(unittest.TestCase):
+    def __test_query_bcode(self,):
+        utm_url = 'http://oct2:8080'
+        query_bcode(utm_url, fsrar_id=get_fsrar_id(utm_url), fb='FB-000005196978883')
+
 if __name__ == "__main__":
     unittest.main()
+
+    done= [
+'FB-000005097843687',
+'FB-000005097843683',
+'FB-000005097843686',
+'FB-000005097843684',
+'FB-000005097843685',
+'FB-000005725925993',
+'FB-000005725925994',
+'FB-000005195995165',
+'FB-000005195995166',
+'FB-000005195995167',
+'FB-000005195995168',
+'FB-000006326145806',
+'FB-000006326326128',
+]
+
+    s2 = [
+        'FB-000006326145806',
+        'FB-000006448947766',
+        'FB-000006581796434',
+        'FB-000006581796442',
+        'FB-000006581796447',
+        'FB-000006581796454',
+        'FB-000006742011793',
+        'FB-000006741950939',
+        'FB-000006741946704',
+        'FB-000006741946705',
+        'FB-000006774122354',
+        'FB-000006774122355',
+        'FB-000006774122356',
+        'FB-000006774122367',
+        'FB-000006902910251',
+        'FB-000006902910255',
+        'FB-000006902910268',
+        'FB-000006902910270',
+        'FB-000006902985135',
+        'FB-000006902985149',
+        'FB-000006905493712',
+        'FB-000004529205520',
+        'FB-000004675943570',
+        'FB-000006448947575',
+        'FB-000006448947786',
+        'FB-000006448947793',
+        'FB-000006449431037',
+        'FB-000006581719750',
+        'FB-000006581796436',
+        'FB-000006581796446',
+        'FB-000006581796448',
+        'FB-000006638627336',
+        'FB-000006741950945',
+        'FB-000006741946703',
+        'FB-000006741946731',
+        'FB-000006741785332',
+        'FB-000006774122357',
+        'FB-000006774122368',
+        'FB-000006902910263',
+        'FB-000006902910267',
+        'FB-000006902910276',
+        'FB-000006902985139',
+        'FB-000006638627324',
+        'FB-000004519295886',
+        'FB-000004519295916',
+        'FB-000004521474958',
+        'FB-000004521474966',
+        'FB-000004630593269',
+        'FB-000004661131795',
+        'FB-000004678493953',
+        'FB-000004683394023',
+        'FB-000004683394029',
+        'FB-000004683394032',
+        'FB-000004708614069',
+        'FB-000004708614070',
+        'FB-000004708614076',
+        'FB-000004743706592',
+        'FB-000004775642733',
+        'FB-000004778419925',
+        'FB-000004778419930',
+        'FB-000004832365062',
+        'FB-000004860380914',
+        'FB-000004860380917',
+        'FB-000004863781851',
+        'FB-000005164416267',
+        'FB-000005169197290',
+        'FB-000005186655581',
+        'FB-000005186655582',
+        'FB-000005186655587',
+        'FB-000005186468008',
+        'FB-000005275731142',
+        'FB-000005545553060',
+        'FB-000005726155959',
+        'FB-000005864453490',
+        'FB-000005921900087',
+        'FB-000006160499102',
+        'FB-000006160557193',
+        'FB-000006165418426',
+        'FB-000006325973306',
+        'FB-000006326145800',
+        'FB-000006326145822',
+        'FB-000006326152505',
+        'FB-000006448947568',
+        'FB-000006448947774',
+        'FB-000006448947788',
+        'FB-000006449431098',
+        'FB-000006458732363',
+        'FB-000006581719751',
+        'FB-000006581719762',
+        'FB-000006581719770',
+        'FB-000006582005556',
+        'FB-000006581922757',
+        'FB-000006581796438',
+        'FB-000006581796445',
+        'FB-000006742011792',
+        'FB-000006741950892',
+        'FB-000006741950903',
+        'FB-000006741950938',
+        'FB-000006741950942',
+        'FB-000006741950948',
+        'FB-000006741946688',
+        'FB-000006741946719',
+        'FB-000006741946724',
+        'FB-000006741946730',
+        'FB-000006741946732',
+        'FB-000006774122351',
+        'FB-000006774122358',
+        'FB-000006774122359',
+        'FB-000006774122365',
+        'FB-000006902910252',
+        'FB-000006902910253',
+        'FB-000006902910256',
+        'FB-000006902910277',
+        'FB-000006902985136',
+    ]
+    utm_url = 'http://localhost:8088'
+    fsrar_id = get_fsrar_id(utm_url)
+#    for s in s2:
+#        print(s)
+#        query_bcode(utm_url, fsrar_id=fsrar_id, fb=s)
+#        sleep(60*35)

@@ -10,11 +10,15 @@ from egais import get_fsrar_id, get_actions
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--utm-url', help='utm_url')
+parser.add_argument('--backend-url', help='backend_url')
 parser.add_argument('--sklad-id', help='sklad-id')
 parser.add_argument('--less-or-equal-id', help='less_or_equal_id')
 args = parser.parse_args()
 
-fsrar_id = get_fsrar_id(args.utm_url)
+utm_url = args.utm_url or 'http://localhost:8080'
+backend_url = args.backend_url or 'https://kirsa.9733.ru'
+
+fsrar_id = get_fsrar_id(utm_url)
 less_or_equal_id = args.less_or_equal_id
 
 fname = './last_id.txt'
@@ -26,7 +30,7 @@ except FileNotFoundError:
     last_id = 0
 print("last id:", last_id)
 
-q = requests.get("{}/opt/out".format(args.utm_url))
+q = requests.get(f"{utm_url}/opt/out")
 assert q.status_code == 200
 root = ET.fromstring(q.text)
 
@@ -63,9 +67,9 @@ if len(files):
     params = {'fsrar_id': fsrar_id}
     print(files)
     print(params)
-    q = requests.post("https://kirsa.9733.ru/file/",
+    q = requests.post(f"{backend_url}/file/",
                       files=files,
-    #                  headers=headers,
+                      # headers=headers,
                       params=params)
     assert q.status_code == 200
     f = open(fname, 'w')
@@ -73,6 +77,6 @@ if len(files):
     f.close()
 print('download ok')
 
-get_actions(fsrar_id=fsrar_id)
+get_actions(fsrar_id=fsrar_id, utm_url=utm_url)
 
 

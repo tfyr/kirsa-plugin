@@ -34,7 +34,7 @@ elif args.cmd == 'bcode':
     q = query_bcode(utm_url, fsrar_id, args.fb)
 elif args.cmd == 'check-bcodes':
     q = query_check_bcodes(utm_url, fsrar_id, args.fn)
-    print(q.text)
+print(q.text)
 
 #assert q.status_code == 200
 #print(q.text)

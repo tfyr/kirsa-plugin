@@ -512,13 +512,14 @@ def write_off_v3(utm_url, fsrar_id, positions, act_number):
     # missed_amc.append({'identity': 146485104, 'inform_f2_reg_id': 'FB-000005796838897', 'real_quantity': 0,})
 
     xml_str = create_write_off_v3(fsrar_id,
-                                       "1",
-                                       act_number,
-                                       datetime.datetime.now().strftime("%Y-%m-%d"),
-                                       handmade,
-                                       "Недостача",  # '[Пересортица, Недостача, Уценка, Порча, Потери, Проверки, Арест, Иные цели, Реализация, Производственные потери]'. It must be a value from the enumeration
-                                       positions,
-                                    )
+                                  "1",
+                                  act_number,
+                                  datetime.datetime.now().strftime("%Y-%m-%d"),
+                                  handmade,
+                                  # "Недостача",  # '[Пересортица, Недостача, Уценка, Порча, Потери, Проверки, Арест, Иные цели, Реализация, Производственные потери]'. It must be a value from the enumeration
+                                  "Недостача",
+                                  positions,
+                                  )
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
     return send_query(xml_str, utm_url, "ActWriteOff_v3")
 
@@ -539,7 +540,7 @@ def waybill_v4(utm_url, fsrar_id, shipper, consignee, transport, positions, numb
     # fsrar_id, number, identity, date, note, positions
     # fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None, rejected=False
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
-    # return send_query(xml_str, utm_url, "ActWriteOff_v3")
+    return send_query(xml_str, utm_url, "WayBill_v4")
 
 def query_rests_v2(utm_url, fsrar_id,):
     global handmade
@@ -652,4 +653,6 @@ def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://loc
             q = requests.post(url, params=params)
             print(x)
             print(q.text)
+        elif x['action'] == 'writeoff_v3':
+            q = write_off_v3(utm_url, fsrar_id, )
 
