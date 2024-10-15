@@ -1,3 +1,4 @@
+import json
 import unittest
 from time import sleep
 
@@ -17,6 +18,33 @@ ooo_dionis = {
                 'description': 'Россия, 455000, Челябинская обл, г. Магнитогорск, ул. Автомобилистов, д. 8г'
             }
         }
+
+ooo_dionis_tashb = {
+            'ClientRegId': '030000543922',
+            'INN': '0201014099',
+            'KPP': '020145006',
+            'FullName': 'Общество с ограниченной ответственностью "Дионис"',
+            'ShortName': 'ООО "Дионис"',
+            'address': {
+                'Country': '643',
+                'RegionCode': '02',
+                'description': 'Башкортостан Республика, Абзелиловский Район, , Ташбулатово Село, Центральная Улица, 17,,'
+            }
+        }
+
+ooo_dionis_smelovsk = {
+            'ClientRegId': '030000834218',
+            'INN': '0201014099',
+            'KPP': '745645003',
+            'FullName': 'Общество с ограниченной ответственностью "Дионис"',
+            'ShortName': 'ООО "Дионис"',
+            'address': {
+                'Country': '643',
+                'RegionCode': '74',
+                'description': 'Россия, Челябинская Область, Верхнеуральский Район, , Смеловский Поселок, Первомайский Переулок, 8А,, '
+            },
+        }
+
 
 class TestSum(unittest.TestCase):
     def __test_send_waybill(self, ):
@@ -87,37 +115,38 @@ class TestWaybill4(unittest.TestCase):
     def test_waybill_v4(self,):
         positions = [
             {
-                'quantity': 400,
-                'price': 59.97,
-                'FARegId': 'FA-000000051998220',
-                'F2RegId': 'FB-000006415398437',
-            },
-            {
-                'quantity': 300,
-                'price': 48.68,
-                'FARegId': 'FA-000000053670746',
-                'F2RegId': 'FB-000006913953311',
-            },
-            {
-                'quantity': 100,
-                'price': 54.79,
-                'FARegId': 'FA-000000048999216',
-                'F2RegId': 'FB-000005018983044',
+                'quantity': 2,
+                'price': 790.00,
+                'FARegId': 'FA-000000043893816',
+                'F2RegId': 'FB-000003552832754',
+                'AlcCode': '0116116000002544848',
+                'Capacity': '0.5000',
+                'AlcVolume': '40.000',
+                'ProductVCode': '237',
+                'FullName': 'Купажированный виски "GLEN RIVERS"',
+                'ShortName': 'Купажированный виски "GLEN RIVERS"',
+                'marks': [
+                    '103400566296331018001LSHQAPAIIJ7JTBRDJBHNCTPLQI3GBWDBKOXO6YRSZMTSKCTWH4QVGJS5XQ6V3I7VEK73L3WXPCJT5RVDFAERVPPV63665E5QAK5BTT7Q6E4F3DUTCIC7GMKGUDBYZ6H6I',
+                    '103400566296481018001NE7FFWLD7MML7QCVOYBG5KAQPI5M6ADV6TVK7SZ2WLX7RFFJH3LVH5VDN4XSYF5MD5BYFRBAHJ2OVL7SZUKEFGH3RZCDGYUUYHXEO7EVH53KR3N4KA5XP7MWCD3QGTY3A',
+                ],
+                'Producer': {
+                    'UL': {
+                        'ClientRegId': '010000000539',
+                        'INN': '1681000049',
+                        'KPP': '165902005',
+                        'FullName': 'Акционерное общество "Татспиртпром"',
+                        'ShortName': 'АО филиал АО "Татспиртпром" "Vigrosso"',
+                        'address': {
+                            'Country': '643',
+                            'RegionCode': '16',
+                            'description': 'РОССИЯ,,ТАТАРСТАН РЕСП,,Казань г,,Учительская ул,5,,',
+                        },
+                    }
+                }
             },
         ]
-        shipper = ooo_dionis
-        consignee = {
-            'ClientRegId': '030000729849',
-            'INN': '742801598687',
-            'KPP': '',
-            'FullName': 'ИП Аюпова Ирина Николаевна',
-            'ShortName': 'ИП Аюпова Ирина Николаевна',
-            'address': {
-                'Country': '643',
-                'RegionCode': '74',
-                'description': 'Россия, 455000, Челябинская обл, г. Магнитогорск, ул. Ворошилова, д. 9а'
-            },
-        }
+        shipper = ooo_dionis_tashb
+        consignee = ooo_dionis_smelovsk
 
         transport = {
             'TRAN_TYPE': 'Автомобиль',
@@ -126,8 +155,8 @@ class TestWaybill4(unittest.TestCase):
             'TRANSPORT_REGNUMBER': 'Лада Ларгус, е885ху174',
             'TRAN_CUSTOMER': 'ООО "Дионис"',
             'TRAN_DRIVER': 'Палагутин И.В.',
-            'TRAN_LOADPOINT': '643,455000,74,,МАГНИТОГОРСК Г,,АВТОМОБИЛИСТОВ УЛ,8Г,,',
-            'TRAN_UNLOADPOINT': 'Россия, 455000, Магнитогорск, ул. Ворошилова 9а',
+            'TRAN_LOADPOINT': 'Башкортостан Республика, Абзелиловский Район, , Ташбулатово Село, Центральная Улица, 17,,',
+            'TRAN_UNLOADPOINT': 'Россия, Челябинская Область, Верхнеуральский Район, , Смеловский Поселок, Первомайский Переулок, ,, ',
             'TRAN_FORWARDER': 'Палагутин И.В.',
         }
 
@@ -144,7 +173,7 @@ class TestEgaisAction(unittest.TestCase):
 
 class TestAct4(unittest.TestCase):
     def __test_act4(self,):
-        utm_url = 'http://rainbow:8080'
+        utm_url = 'http://localhost:8080'
         fsrar_id = get_fsrar_id(utm_url)
         act4(utm_url, fsrar_id, 'TTN-0725910955', False)
 
@@ -298,3 +327,4 @@ if __name__ == "__main__":
 #        print(s)
 #        query_bcode(utm_url, fsrar_id=fsrar_id, fb=s)
 #        sleep(60*35)
+

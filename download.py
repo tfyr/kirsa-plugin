@@ -21,7 +21,7 @@ backend_url = args.backend_url or 'https://kirsa.9733.ru'
 fsrar_id = get_fsrar_id(utm_url)
 less_or_equal_id = args.less_or_equal_id
 
-fname = './last_id.txt'
+fname = './last_id.txt'   # 51
 try:
     f = open(fname, 'r')
     last_id = int(f.read())

@@ -4,6 +4,7 @@ import xml
 import xml.dom.minidom
 import xml.etree.ElementTree as ET
 import requests
+from lxml import etree
 
 ns_namespace = "http://fsrar.ru/WEGAIS/WB_DOC_SINGLE_01"
 handmade = "Создано вручную, с любовью и вниманием к деталям."
@@ -71,8 +72,9 @@ def create_accept_act_v3(fsrar_id, act_number, act_date, wb_reg_id, note):
     ET.SubElement(header, "wa:WBRegId").text = wb_reg_id
     ET.SubElement(header, "wa:Note").text = note
     ET.SubElement(waybill_act, "wa:Content")
-    tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
 
 
 def create_waybill_act_v4(fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None, rejected=False):
@@ -106,8 +108,9 @@ def create_waybill_act_v4(fsrar_id, act_number, act_date, wb_reg_id, note, misse
                     ET.SubElement(mark_info, "{%s}amc" % ce_namespace).text = mark
     transport = ET.SubElement(waybill_act, "wa:Transport")
     ET.SubElement(transport, "wa:ChangeOwnership").text="NotChange"
-    tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
 
 
 def add_shipper(header, shipper):
@@ -126,14 +129,29 @@ def add_shipper(header, shipper):
     ET.SubElement(address, "oref:description").text = shipper['address']['description']
 
 
-def add_consignee(header, consignee):
+def add_consignee_ul(header, consignee):
+    oref_namespace = "http://fsrar.ru/WEGAIS/ClientRef_v2"
+    ET.register_namespace("oref", oref_namespace)
+    c = ET.SubElement(header, "wb:Consignee")
+    ul = ET.SubElement(c, "{%s}UL" % oref_namespace)
+    ET.SubElement(ul, "oref:ClientRegId").text = consignee['ClientRegId']
+    ET.SubElement(ul, "oref:INN").text = consignee['INN']
+    ET.SubElement(ul, "oref:KPP").text = consignee['KPP']
+    ET.SubElement(ul, "oref:FullName").text = consignee['FullName']
+    ET.SubElement(ul, "oref:ShortName").text = consignee['ShortName']
+    address = ET.SubElement(ul, "oref:address")
+    ET.SubElement(address, "oref:Country").text = consignee['address']['Country']
+    ET.SubElement(address, "oref:RegionCode").text = consignee['address']['RegionCode']
+    ET.SubElement(address, "oref:description").text = consignee['address']['description']
+
+
+def add_consignee_fl(header, consignee):
     oref_namespace = "http://fsrar.ru/WEGAIS/ClientRef_v2"
     ET.register_namespace("oref", oref_namespace)
     c = ET.SubElement(header, "wb:Consignee")
     ul = ET.SubElement(c, "{%s}FL" % oref_namespace)
     ET.SubElement(ul, "oref:ClientRegId").text = consignee['ClientRegId']
     ET.SubElement(ul, "oref:INN").text = consignee['INN']
-    #ET.SubElement(ul, "oref:KPP").text = consignee['KPP']
     ET.SubElement(ul, "oref:FullName").text = consignee['FullName']
     ET.SubElement(ul, "oref:ShortName").text = consignee['ShortName']
     address = ET.SubElement(ul, "oref:address")
@@ -158,6 +176,31 @@ def add_transport(header, transport):
     ET.SubElement(tran, "wb:TRAN_FORWARDER").text = transport['TRAN_FORWARDER']
 
 
+def add_producer(product, data):
+    producer = ET.SubElement(product, "pref:Producer")  # pos['Producer']
+    if 'UL' in data:
+        xl = ET.SubElement(producer, "oref:UL")
+        data_xl = data['UL']
+        ET.SubElement(xl, "oref:INN").text = data_xl['INN']
+        ET.SubElement(xl, "oref:KPP").text = data_xl['KPP']
+    elif 'FO' in data:
+        xl = ET.SubElement(producer, "oref:FO")
+        data_xl = data['FO']
+    elif 'TS' in data:
+        xl = ET.SubElement(producer, "oref:TS")
+        data_xl = data['TS']
+    else:
+        raise Exception("unknown producer type")
+    ET.SubElement(xl, "oref:ClientRegId").text = data_xl['ClientRegId']
+    ET.SubElement(xl, "oref:FullName").text = data_xl['FullName']
+    ET.SubElement(xl, "oref:ShortName").text = data_xl['ShortName']
+    address = ET.SubElement(xl, "oref:address")
+    ET.SubElement(address, "oref:Country").text = data_xl['address']['Country']
+    if 'UL' in data:
+        ET.SubElement(address, "oref:RegionCode").text = data_xl['address']['RegionCode']
+    ET.SubElement(address, "oref:description").text = data_xl['address']['description']
+
+
 def create_waybill_v4(fsrar_id, number, identity, date, note, shipper, consignee, transport, positions, base):
     doc = Doc(fsrar_id)
 
@@ -178,7 +221,7 @@ def create_waybill_v4(fsrar_id, number, identity, date, note, shipper, consignee
     ET.SubElement(header, "wb:Note").text = note
     ET.SubElement(header, "wb:Base").text = base
     add_shipper(header, shipper)
-    add_consignee(header, consignee)
+    add_consignee_ul(header, consignee)
     add_transport(header, transport)
     content = ET.SubElement(waybill, "wb:Content")
     i = 1
@@ -192,11 +235,39 @@ def create_waybill_v4(fsrar_id, number, identity, date, note, shipper, consignee
         ET.SubElement(position, "wb:FARegId").text = pos['FARegId']
         inform_f2 = ET.SubElement(position, "wb:InformF2")
         ET.SubElement(inform_f2, "{%s}F2RegId" % ce_namespace).text = pos["F2RegId"]
+        mark_info = ET.SubElement(inform_f2, "ce:MarkInfo")
+        boxpos = ET.SubElement(mark_info, "ce:boxpos")
+        amclist = ET.SubElement(boxpos, "ce:amclist")
+        for m in pos['marks']:
+            ET.SubElement(amclist, "ce:amc").text = m
 
         i += 1
         product = ET.SubElement(position, "wb:Product")
-    tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+        ET.SubElement(product, "{%s}AlcCode" % pref_namespace).text = pos['AlcCode']
+        ET.SubElement(product, "pref:UnitType").text = 'Packed'
+        ET.SubElement(product, "pref:Type").text = 'АП'
+        ET.SubElement(product, "pref:Capacity").text = pos['Capacity']
+        ET.SubElement(product, "pref:AlcVolume").text = pos['AlcVolume']
+        ET.SubElement(product, "pref:FullName").text = pos['FullName']
+        ET.SubElement(product, "pref:ShortName").text = pos['ShortName']
+        add_producer(product, pos['Producer'])
+        ET.SubElement(product, "pref:ProductVCode").text = pos['ProductVCode']
+
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
+
+
+def validate_xml(xml_str):
+    xmlschema = etree.XMLSchema(etree.parse("./xsd/WB_DOC_SINGLE_01.xsd"))
+
+    try:
+        xmlschema.assertValid(etree.fromstring(xml_str))
+    except etree.DocumentInvalid as e:
+        print("Validation error(s):")
+        for error in xmlschema.error_log:
+            print("  Line {}: {}".format(error.line, error.message))
+        raise e
 
 
 def create_act_write_off_v3(fsrar_id, act_number, act_date, wb_reg_id, note, missed_amc=None):
@@ -229,8 +300,9 @@ def create_act_write_off_v3(fsrar_id, act_number, act_date, wb_reg_id, note, mis
                     ET.SubElement(mark_info, "{%s}amc" % ce_namespace).text = mark
     transport = ET.SubElement(act_wroiteoff, "wa:Transport")
     ET.SubElement(transport, "wa:ChangeOwnership").text="NotChange"
-    tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
 
 '''
 <?xml version="1.0" encoding="UTF-8"?>
@@ -337,8 +409,9 @@ def create_write_off_shop_v2(fsrar_id, identity, act_number, act_date, note, xty
             ET.SubElement(marks, "MarkCode").text = m
 
         i += 1
-    tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
 
 
 def create_write_off_v3(fsrar_id, identity, act_number, act_date, note, xtype, positions=None,):
@@ -375,8 +448,9 @@ def create_write_off_v3(fsrar_id, identity, act_number, act_date, note, xtype, p
             ET.SubElement(marks, "{%s}amc" % ce_namespace).text = m
 
         i += 1
-    tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
 
 
 def create_query_resend_doc(fsrar_id, ttn):
@@ -389,9 +463,10 @@ def create_query_resend_doc(fsrar_id, ttn):
     qps = doc.append_parameters(query_resend_doc)
     doc.append_parameter(qps, "WBREGID", ttn)
 
-    tree = ET.ElementTree(doc.documents)
     #tree.write("./egais_cheques/{}-{}.xml".format(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"), kassa), encoding="UTF-8", xml_declaration=True)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
 
 
 def create_query_nattn(fsrar_id,):
@@ -399,8 +474,9 @@ def create_query_nattn(fsrar_id,):
     query_nattn = ET.SubElement(doc.document, "ns:QueryNATTN")
     qps = doc.append_parameters(query_nattn)
     doc.append_parameter(qps, "КОД", fsrar_id)
-    tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
 
 
 '''
@@ -428,8 +504,9 @@ xmlns:qp="http://fsrar.ru/WEGAIS/QueryParameters">
 def create_query_request_rests(fsrar_id):
     doc = Doc(fsrar_id)
     ET.SubElement(doc.document, "ns:QueryRests_v2")
-    tree = ET.ElementTree(doc.documents)
-    return ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True, ).decode("utf-8")
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    return xml_str.decode("utf-8")
 
 
 def send_query(str_xml, utm_url, service):
@@ -637,22 +714,45 @@ def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://loc
     assert q.status_code == 200
     data = json.loads(q.text)
     for x in data:
-        if x['action'] == 'act4':
+        action = x['action']
+        if action == 'act4':
             q = act4(utm_url, fsrar_id, x['wbreg_id'])
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
-            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id, 'sign': sign}
+            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id,
+                      'sign': sign}
             q = requests.post(url, params=params)
             print(x)
             print(q.text)
-        elif x['action'] == 'nattn':
+        elif action == 'nattn':
             q = nattn(utm_url, fsrar_id)
+            assert q.status_code == 200
+            transport_id, sign, = parse_simple_response(q.text)
+            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id,
+                      'sign': sign}
+            q = requests.post(url, params=params)
+            print(x)
+            print(q.text)
+        elif action == 'writeoff_v3':
+            params = json.loads(x['params'])
+            print(params)
+            q = write_off_v3(utm_url, fsrar_id, params['positions'], params['number'])
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
             params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id, 'sign': sign}
             q = requests.post(url, params=params)
             print(x)
             print(q.text)
-        elif x['action'] == 'writeoff_v3':
-            q = write_off_v3(utm_url, fsrar_id, )
+        elif action == 'wb4':
+            params = json.loads(x['params'])
+            q = waybill_v4(utm_url, fsrar_id, params['shipper'], params['consignee'], params['transport'],
+                           params['positions'], params['number'], params['base'])
+            assert q.status_code == 200
+            transport_id, sign, = parse_simple_response(q.text)
+            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id, 'sign': sign}
+            q = requests.post(url, params=params)
+            print(x)
+            print(q.text)
+        else:
+            raise Exception("unknown action")
 
