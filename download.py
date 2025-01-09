@@ -11,7 +11,6 @@ from egais import get_fsrar_id, get_actions
 parser = argparse.ArgumentParser()
 parser.add_argument('--utm-url', help='utm_url')
 parser.add_argument('--backend-url', help='backend_url')
-parser.add_argument('--sklad-id', help='sklad-id')
 parser.add_argument('--less-or-equal-id', help='less_or_equal_id')
 args = parser.parse_args()
 
