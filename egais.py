@@ -717,8 +717,8 @@ def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://loc
     for x in data:
         action = x['action']
         if action == 'act4':
-            in_params = json.loads(x['params'])
-            reject = 'reject' in in_params and in_params['reject']
+            in_params = json.loads(x['params']) if x['params'] else None
+            reject = in_params and 'reject' in in_params and in_params['reject']
             q = act4(utm_url, fsrar_id, x['wbreg_id'], reject)
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
