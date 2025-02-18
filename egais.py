@@ -549,19 +549,19 @@ def act3(utm_url, fsrar_id, ttn):
     return send_query(xml_str, utm_url, "WayBillAct_v3")
 
 
-def act4(utm_url, fsrar_id, ttn, reject=False,):
+def act4(utm_url, fsrar_id, ttn, reject=False, diffs=None):
     global handmade
-    missed_amc = None  # list()
-    #missed_amc.append({'identity': '1', 'inform_f2_reg_id': 'FB-000007337924086', 'real_quantity': 180,})
-    #missed_amc.append({'identity': '2', 'inform_f2_reg_id': 'FB-000007337924087', 'real_quantity': 0,})
-    #missed_amc.append({'identity': '3', 'inform_f2_reg_id': 'FB-000007337924088', 'real_quantity': 450,})
-    #missed_amc.append({'identity': '4', 'inform_f2_reg_id': 'FB-000007337924089', 'real_quantity': 400,})
+    # missed_amc = None  # list()
+    # missed_amc.append({'identity': '1', 'inform_f2_reg_id': 'FB-000007337924086', 'real_quantity': 180,})
+    # missed_amc.append({'identity': '2', 'inform_f2_reg_id': 'FB-000007337924087', 'real_quantity': 0,})
+    # missed_amc.append({'identity': '3', 'inform_f2_reg_id': 'FB-000007337924088', 'real_quantity': 450,})
+    # missed_amc.append({'identity': '4', 'inform_f2_reg_id': 'FB-000007337924089', 'real_quantity': 400,})
     xml_str = create_waybill_act_v4(fsrar_id,
                                    "000019",
                                     datetime.datetime.now().strftime("%Y-%m-%d"),
                                     ttn,
                                     handmade,
-                                    missed_amc,
+                                    diffs,  # missed_amc,
                                     reject,
                                     )
     print(xml.dom.minidom.parseString(xml_str).toprettyxml())
@@ -719,7 +719,8 @@ def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://loc
         if action == 'act4':
             in_params = json.loads(x['params']) if x['params'] else None
             reject = in_params and 'reject' in in_params and in_params['reject']
-            q = act4(utm_url, fsrar_id, x['wbreg_id'], reject)
+            diffs = in_params['diffs'] if in_params and 'diffs' in in_params else None
+            q = act4(utm_url, fsrar_id, x['wbreg_id'], reject, diffs)
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
             params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id,
