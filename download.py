@@ -18,7 +18,6 @@ utm_url = args.utm_url or 'http://localhost:8080'
 backend_url = args.backend_url or 'https://kirsa.9733.ru'
 
 fsrar_id = get_fsrar_id(utm_url)
-less_or_equal_id = args.less_or_equal_id
 
 def download():
     fname = './last_id.txt'   # 51
@@ -38,8 +37,8 @@ def download():
     i = 0
     new_last_id = last_id
 
-    if args.less_or_equal_id:
-        less_or_equal_id = int(args.less_or_equal_id)
+
+    less_or_equal_id = int(args.less_or_equal_id) if args.less_or_equal_id else None
 
     for url in root.findall('url'):
         m = re.match(r"http:\/\/.*\/opt\/out\/(.*)\/(\d+)", url.text)
