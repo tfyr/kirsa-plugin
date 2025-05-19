@@ -74,7 +74,7 @@ def create_cheque_v3(fsrar_id, identity, date, kassa, shift, number, bottles):
 
     xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
     validate_xml(xml_str)
-    tree = ET.ElementTree(doc)
+    tree = ET.ElementTree(doc.documents)
     tree.write("./egais_cheques/{}-{}.xml".format(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"), fsrar_id), encoding="UTF-8", xml_declaration=True)
     return xml_str.decode("utf-8")
 
