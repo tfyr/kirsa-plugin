@@ -37,10 +37,47 @@ class Doc:
 
 
 def get_fsrar_id(utm_url):
-    q = requests.get("{}/diagnosis".format(utm_url),)
+    q = requests.get("{}/diagnosis".format(utm_url), )
     assert q.status_code == 200
     root = ET.fromstring(q.text)
     return root.find("CN").text
+
+
+def create_cheque_v3(fsrar_id, identity, date, kassa, shift, number, bottles):
+    doc = Doc(fsrar_id)
+
+    ck_namespace = "http://fsrar.ru/WEGAIS/ChequeV3"
+    ET.register_namespace('ck', ck_namespace)
+
+    cheque_v3 = ET.SubElement(doc.document, "ns:ChequeV3")
+    ET.SubElement(cheque_v3, "{%s}Identity" % ck_namespace).text= identity
+    # header_ttn = ET.SubElement(cheque_v3, "ck:HeaderTTN")
+    # ET.SubElement(header_ttn, "ck:Date").text = date
+    # ET.SubElement(header_ttn, "ck:BillNumber").text = bill_number
+    # ET.SubElement(header_ttn, "ck:TTNNumber").text = ttn_number
+    # ET.SubElement(header_ttn, "ck:Type").text = 'Продажа'
+
+    header = ET.SubElement(cheque_v3, "ck:Header")
+    ET.SubElement(header, "ck:Date").text = date
+    ET.SubElement(header, "ck:Kassa").text = kassa
+    ET.SubElement(header, "ck:Shift").text = shift
+    ET.SubElement(header, "ck:Number").text = number
+    ET.SubElement(header, "ck:Type").text = 'Продажа'
+
+
+    content = ET.SubElement(cheque_v3, "ck:Content")
+    for bottle in bottles:
+        b = ET.SubElement(content, "ck:Bottle")
+        ET.SubElement(b, "ck:Barcode").text = bottle.barcode
+        ET.SubElement(b, "ck:EAN").text = bottle.ean
+        ET.SubElement(b, "ck:Price").text = "{:.2f}".format(bottle.price)
+
+    xml_str = ET.tostring(ET.ElementTree(doc.documents).getroot(), encoding="UTF-8", xml_declaration=True, )
+    validate_xml(xml_str)
+    tree = ET.ElementTree(doc)
+    tree.write("./egais_cheques/{}-{}.xml".format(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"), fsrar_id), encoding="UTF-8", xml_declaration=True)
+    return xml_str.decode("utf-8")
+
 
 def create_accept_act_v2(fsrar_id, act_number, act_date, wb_reg_id, note):
     doc = Doc(fsrar_id)
