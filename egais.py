@@ -703,6 +703,7 @@ def query_check_bcodes(utm_url, fsrar_id, fn):
         return send_query(xml_str, utm_url, "QueryFilter")
 
 
+'''
 def xxx():
     from kirsa.models import Income, TuAlco, IncomePosAlco
     # et = ET.parse(fn)
@@ -744,7 +745,7 @@ def xxx():
         #    tua.save()
         # inc_pos_alco = IncomePosAlco(income=income, amount=quantity, price=tua.price if tua.price else 0, tu_id=tua.id, inform_a_reg=inform_a_reg_id, inform_b_reg=inform_b_reg_id)
         # inc_pos_alco.save()
-
+    '''
 
 def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://localhost:8080'):
     params = {'fsrar_id': fsrar_id, 'action': 'get_actions'}
