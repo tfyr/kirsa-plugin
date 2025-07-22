@@ -4,10 +4,10 @@ from io import BytesIO, StringIO
 
 
 def parse_rests_v2(xml):
-    #fn = 'data/ReplyRests_v2.xml'
-    #et = ET.parse(fn)
+    fn = 'ReplyRests_v2.xml'
+    et = ET.parse(fn)
     #root = et.getroot()
-    et = ET.fromstring(xml)
+    #et = ET.fromstring(xml)
     root = et
 
 
@@ -45,7 +45,7 @@ def parse_rests_v2(xml):
             print("    inform_b_reg_id: " + inform_b_reg_id)
             x += 1
             y += Decimal(quantity)
-            IncomePosAlco
+            # IncomePosAlco
 
 #        try:
 #            tua = TuAlco.objects.get(extsource=3, extcode=alco_code)
@@ -53,3 +53,6 @@ def parse_rests_v2(xml):
 #        except TuAlco.DoesNotExist:
 #            raise Exception("not found")
     print(x, y)
+
+
+parse_rests_v2(None)
