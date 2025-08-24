@@ -746,10 +746,22 @@ def xxx():
         # inc_pos_alco = IncomePosAlco(income=income, amount=quantity, price=tua.price if tua.price else 0, tu_id=tua.id, inform_a_reg=inform_a_reg_id, inform_b_reg=inform_b_reg_id)
         # inc_pos_alco.save()
     '''
+egais_ms = 'https://kirsa.9733.ru/kirsa-egais/'
+
+def store_sign(fsrar_id: str, id: int, transport_id: str, sign: str):
+    params = {
+              'fsrar_id': fsrar_id,
+              'id': id,
+              'transport_id': transport_id,
+              'sign': sign,
+              }
+    requests.post(f"{egais_ms}store-sign", json=params,
+                  headers={'Content-Type': 'application/json'})
+
 
 def get_actions(fsrar_id, utm_url='http://localhost:8080'):
     url = 'https://kirsa.9733.ru/file/'
-    q = requests.get(f"https://kirsa.9733.ru/kirsa-egais/actions/{fsrar_id}")
+    q = requests.get(f"{egais_ms}actions/{fsrar_id}")
     assert q.status_code == 200
     data = json.loads(q.text)
     for x in data:
@@ -761,44 +773,26 @@ def get_actions(fsrar_id, utm_url='http://localhost:8080'):
             q = act4(utm_url, fsrar_id, x['wbreg_id'], reject, diffs)
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
-            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id,
-                      'sign': sign}
-            q = requests.post(url, params=params)
-            print(x)
-            print(q.text)
+            store_sign(fsrar_id, x['id'], transport_id, sign)
         elif action == 'nattn':
             q = nattn(utm_url, fsrar_id)
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
-            params = {'fsrar_id': fsrar_id,
-                      'action': 'store_sign',
-                      'id': x['id'],
-                      'transport_id': transport_id,
-                      'sign': sign,
-                      }
-            q = requests.post(f"https://kirsa.9733.ru/kirsa-egais/store-sign/{fsrar_id}", params=params)
-            print(x)
-            print(q.text)
+            store_sign(fsrar_id, x['id'], transport_id, sign)
         elif action == 'writeoff_v3':
             params = json.loads(x['params'])
             print(params)
             q = write_off_v3(utm_url, fsrar_id, params['positions'], params['number'])
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
-            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id, 'sign': sign}
-            q = requests.post(url, params=params)
-            print(x)
-            print(q.text)
+            store_sign(fsrar_id, x['id'], transport_id, sign)
         elif action == 'wb4':
             params = json.loads(x['params'])
             q = waybill_v4(utm_url, fsrar_id, params['shipper'], params['consignee'], params['transport'],
                            params['positions'], params['number'], params['base'])
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
-            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id, 'sign': sign}
-            q = requests.post(url, params=params)
-            print(x)
-            print(q.text)
+            store_sign(fsrar_id, x['id'], transport_id, sign)
         else:
             raise Exception("unknown action")
 
