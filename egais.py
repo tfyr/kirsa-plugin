@@ -747,9 +747,8 @@ def xxx():
         # inc_pos_alco.save()
     '''
 
-def get_actions(fsrar_id, url="https://kirsa.9733.ru/file/", utm_url='http://localhost:8080'):
-    params = {'fsrar_id': fsrar_id, 'action': 'get_actions'}
-    q = requests.post(url, params=params)
+def get_actions(fsrar_id, utm_url='http://localhost:8080'):
+    q = requests.get(f"https://kirsa.9733.ru/kirsa-egais/actions/{fsrar_id}")
     assert q.status_code == 200
     data = json.loads(q.text)
     for x in data:
