@@ -770,9 +770,13 @@ def get_actions(fsrar_id, utm_url='http://localhost:8080'):
             q = nattn(utm_url, fsrar_id)
             assert q.status_code == 200
             transport_id, sign, = parse_simple_response(q.text)
-            params = {'fsrar_id': fsrar_id, 'action': 'store_sign', 'id': x['id'], 'transport_id': transport_id,
-                      'sign': sign}
-            q = requests.post(url, params=params)
+            params = {'fsrar_id': fsrar_id,
+                      'action': 'store_sign',
+                      'id': x['id'],
+                      'transport_id': transport_id,
+                      'sign': sign,
+                      }
+            q = requests.post(f"https://kirsa.9733.ru/kirsa-egais/store-sign/{fsrar_id}", params=params)
             print(x)
             print(q.text)
         elif action == 'writeoff_v3':
