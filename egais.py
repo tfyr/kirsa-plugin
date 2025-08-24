@@ -748,6 +748,7 @@ def xxx():
     '''
 
 def get_actions(fsrar_id, utm_url='http://localhost:8080'):
+    url = 'https://kirsa.9733.ru/file/'
     q = requests.get(f"https://kirsa.9733.ru/kirsa-egais/actions/{fsrar_id}")
     assert q.status_code == 200
     data = json.loads(q.text)
