@@ -33,7 +33,8 @@ def download():
     assert q.status_code == 200
     root = ET.fromstring(q.text)
 
-    files = dict()
+    files_list = list()
+    files_dict = dict()
     i = 0
     new_last_id = last_id
 
@@ -55,21 +56,23 @@ def download():
         print(id, url.text)
         q = requests.get(url.text)
         assert q.status_code == 200
-        files["{}-{}{}".format(id, entity, ("-"+url.attrib['replyId']) if 'replyId' in url.attrib else '')] = q.text
+        # files_dict[f"files"] =  ("{}-{}{}".format(id, entity, ("-"+url.attrib['replyId']) if 'replyId' in url.attrib else ''), q.text, 'text/plain')
+        files_list.append( (f"files",  ("{}-{}{}".format(id, entity, ("-"+url.attrib['replyId']) if 'replyId' in url.attrib else ''), q.text, 'text/plain')))
+        # files = {"files": ('x1', q.text, 'text/plain')}
         i += 1
 
 
     # headers = {'Content-Disposition': 'attachment'}
     #headers = {'Content-Type': 'multipart/form-data',}
     #params = [('title', 'Waybill_v4.xml'), ('sklad_id', args.sklad_id)]
-    if len(files):
+    if len(files_list):
         params = {'fsrar_id': fsrar_id}
-        print(files)
         print(params)
-        q = requests.post(f"{backend_url}/file/",
-                          files=files,
+        q = requests.post(f"{backend_url}/kirsa-egais/upload-file",
+                          files=files_list,
                           # headers=headers,
-                          params=params)
+                          params=params,
+                          )
         assert q.status_code == 200
         f = open(fname, 'w')
         f.write(str(new_last_id))
